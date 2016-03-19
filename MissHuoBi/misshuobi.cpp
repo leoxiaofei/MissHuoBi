@@ -8,7 +8,11 @@
 #include <functional>
 #include <QSocketIoClient>
 
-#include "hbapi\request\requestparser.h"
+#include "hbapi\hbparser.h"
+#include "hbapi\reqmarketdepthtop.h"
+#include "hbapi\reqmsgsubscribe.h"
+#include "hbapi\msgtradedetail.h"
+#include "hbapi\msgmarketdetail.h"
 
 using namespace HBAPI;
 
@@ -16,7 +20,7 @@ class MissHuoBi::Impl
 {
 public:
 	QSocketIoClient* pIO;
-	RequestParser*   pRP;
+	HbParser*   pRP;
 };
 
 
@@ -27,11 +31,11 @@ MissHuoBi::MissHuoBi(QWidget *parent)
 	m_pImpl->pIO = new QSocketIoClient(this);
 	m_pImpl->pIO->setObjectName("sioClient");
 
-	m_pImpl->pRP = new RequestParser(this);
+	m_pImpl->pRP = new HbParser(this);
 	m_pImpl->pRP->InitParser(m_pImpl->pIO);
 
-	m_pImpl->pIO->on("message", [=](const QJsonArray& returnValue){
-		qDebug() << "message:" << returnValue; });
+// 	m_pImpl->pIO->on("message", [=](const QJsonArray& returnValue){
+// 		qDebug() << "message:" << returnValue; });
 
 // 	m_pIO->on("connect", [=](const QJsonArray& returnValue){
 // 		qDebug() << "connect."; });
@@ -65,9 +69,21 @@ void MissHuoBi::on_actionDisconnect_triggered()
 void MissHuoBi::on_actionRequest_triggered()
 {
 	//QString strMsg = '{"symbolId":"btccny","version":1,"msgType":"reqMarketDepthTop","requestIndex":1405131204513}';
-	m_pImpl->pIO->emitMessage("request", QJsonObject(
-	{ { "symbolId", "btccny" }, { "version", "1" }, { "msgType", "reqMarketDepthTop" }, { "requestIndex", "1405131204513" } }
-	).toVariantMap());
+// 	m_pImpl->pIO->emitMessage("request", QJsonObject(
+// 	{ { "symbolId", "btccny" }, { "version", "1" }, { "msgType", "reqMarketDepthTop" }, { "requestIndex", "1405131204513" } }
+// 	).toVariantMap());
+
+// 	ReqMarketDepthTop* pReqMarketDepthTop =
+// 		m_pImpl->pRP->QueryRequest<ReqMarketDepthTop>();
+// 	pReqMarketDepthTop->SendRequest("btccny");
+
+	ReqMsgSubscribe* pReqMsgSubscribe =
+		m_pImpl->pRP->QueryRequest<ReqMsgSubscribe>();
+
+	MsgTradeDetail a;
+	MsgMarketDetail b;
+	pReqMsgSubscribe->SendRequest(QVector<Subscriber>() << a.GetSubscriber(SIT_BTCCNY, PT_PUSHLONG)
+		<< b.GetSubscriber(SIT_BTCCNY, PT_PUSHLONG));
 }
 
 void MissHuoBi::on_sioClient_heartbeatReceived()

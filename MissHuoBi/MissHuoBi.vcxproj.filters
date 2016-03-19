@@ -56,10 +56,40 @@
     <ClCompile Include="GeneratedFiles\qrc_misshuobi.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="hbapi\request\requestparser.cpp">
+    <ClCompile Include="hbapi\reqmarketdepthtop.cpp">
       <Filter>Source Files\hbapi</Filter>
     </ClCompile>
-    <ClCompile Include="hbapi\request\reqmarketdepthtop.cpp">
+    <ClCompile Include="hbapi\requestbase.cpp">
+      <Filter>Source Files\hbapi</Filter>
+    </ClCompile>
+    <ClCompile Include="hbapi\reqmsgsubscribe.cpp">
+      <Filter>Source Files\hbapi</Filter>
+    </ClCompile>
+    <ClCompile Include="hbapi\subscribebase.cpp">
+      <Filter>Source Files\hbapi</Filter>
+    </ClCompile>
+    <ClCompile Include="hbapi\misshbdef.cpp">
+      <Filter>Source Files\hbapi</Filter>
+    </ClCompile>
+    <ClCompile Include="hbapi\hbparser.cpp">
+      <Filter>Source Files\hbapi</Filter>
+    </ClCompile>
+    <ClCompile Include="hbapi\misshbfunc.cpp">
+      <Filter>Source Files\hbapi</Filter>
+    </ClCompile>
+    <ClCompile Include="hbapi\msgtradedetail.cpp">
+      <Filter>Source Files\hbapi</Filter>
+    </ClCompile>
+    <ClCompile Include="hbapi\msgmarketdetail.cpp">
+      <Filter>Source Files\hbapi</Filter>
+    </ClCompile>
+    <ClCompile Include="hbapi\bidsdata.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hbapi\asksdata.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hbapi\tradesdata.cpp">
       <Filter>Source Files\hbapi</Filter>
     </ClCompile>
   </ItemGroup>
@@ -73,18 +103,54 @@
     <CustomBuild Include="misshuobi.qrc">
       <Filter>Resource Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="hbapi\request\reqmarketdepthtop.h">
-      <Filter>Header Files\hbapi</Filter>
-    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_misshuobi.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="hbapi\request\requestbase.h">
+    <ClInclude Include="hbapi\idCreater.hpp">
       <Filter>Header Files\hbapi</Filter>
     </ClInclude>
-    <ClInclude Include="hbapi\request\requestparser.h">
+    <ClInclude Include="hbapi\reqmarketdepthtop.h">
+      <Filter>Header Files\hbapi</Filter>
+    </ClInclude>
+    <ClInclude Include="hbapi\requestbase.h">
+      <Filter>Header Files\hbapi</Filter>
+    </ClInclude>
+    <ClInclude Include="hbapi\reqmsgsubscribe.h">
+      <Filter>Header Files\hbapi</Filter>
+    </ClInclude>
+    <ClInclude Include="hbapi\subscribebase.h">
+      <Filter>Header Files\hbapi</Filter>
+    </ClInclude>
+    <ClInclude Include="hbapi\misshbdef.h">
+      <Filter>Header Files\hbapi</Filter>
+    </ClInclude>
+    <ClInclude Include="hbapi\hbparser.h">
+      <Filter>Header Files\hbapi</Filter>
+    </ClInclude>
+    <ClInclude Include="hbapi\mspool.hpp">
+      <Filter>Header Files\hbapi</Filter>
+    </ClInclude>
+    <ClInclude Include="hbapi\arrayalgorithm.hpp">
+      <Filter>Header Files\hbapi</Filter>
+    </ClInclude>
+    <ClInclude Include="hbapi\misshbfunc.h">
+      <Filter>Header Files\hbapi</Filter>
+    </ClInclude>
+    <ClInclude Include="hbapi\msgtradedetail.h">
+      <Filter>Header Files\hbapi</Filter>
+    </ClInclude>
+    <ClInclude Include="hbapi\msgmarketdetail.h">
+      <Filter>Header Files\hbapi</Filter>
+    </ClInclude>
+    <ClInclude Include="hbapi\asksdata.h">
+      <Filter>Header Files\hbapi</Filter>
+    </ClInclude>
+    <ClInclude Include="hbapi\bidsdata.h">
+      <Filter>Header Files\hbapi</Filter>
+    </ClInclude>
+    <ClInclude Include="hbapi\tradesdata.h">
       <Filter>Header Files\hbapi</Filter>
     </ClInclude>
   </ItemGroup>

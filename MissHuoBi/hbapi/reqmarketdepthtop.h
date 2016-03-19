@@ -3,16 +3,23 @@
 
 #include "requestbase.h"
 
+/*
+历史数据接口
+获取Top行情深度
+*/
 
 namespace HBAPI
 {
 	class ReqMarketDepthTop : public RequestBase
 	{
-		MSGTYPE(reqMarketDepthTop);
+		REQTYPE(reqMarketDepthTop);
 	public:
 		ReqMarketDepthTop();
 		~ReqMarketDepthTop();
 
+		int SendRequest(SymbolIdType eSymbolId);
+
+	protected:
 		virtual bool ReceiveJson(const QJsonObject& json) override;
 
 	};

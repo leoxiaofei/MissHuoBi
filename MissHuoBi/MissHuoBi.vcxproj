@@ -28,9 +28,11 @@
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="boost.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="boost.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
@@ -94,8 +96,18 @@
     <ClCompile Include="GeneratedFiles\Release\moc_misshuobi.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="hbapi\request\reqmarketdepthtop.cpp" />
-    <ClCompile Include="hbapi\request\requestparser.cpp" />
+    <ClCompile Include="hbapi\asksdata.cpp" />
+    <ClCompile Include="hbapi\bidsdata.cpp" />
+    <ClCompile Include="hbapi\misshbdef.cpp" />
+    <ClCompile Include="hbapi\misshbfunc.cpp" />
+    <ClCompile Include="hbapi\msgmarketdetail.cpp" />
+    <ClCompile Include="hbapi\reqmarketdepthtop.cpp" />
+    <ClCompile Include="hbapi\reqmsgsubscribe.cpp" />
+    <ClCompile Include="hbapi\requestbase.cpp" />
+    <ClCompile Include="hbapi\hbparser.cpp" />
+    <ClCompile Include="hbapi\subscribebase.cpp" />
+    <ClCompile Include="hbapi\msgtradedetail.cpp" />
+    <ClCompile Include="hbapi\tradesdata.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="misshuobi.cpp" />
   </ItemGroup>
@@ -125,22 +137,21 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_misshuobi.h" />
-    <CustomBuild Include="hbapi\request\reqmarketdepthtop.h">
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-      </Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-      </Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-      </Command>
-    </CustomBuild>
-    <ClInclude Include="hbapi\request\requestbase.h" />
-    <ClInclude Include="hbapi\request\requestparser.h" />
+    <ClInclude Include="hbapi\arrayalgorithm.hpp" />
+    <ClInclude Include="hbapi\asksdata.h" />
+    <ClInclude Include="hbapi\bidsdata.h" />
+    <ClInclude Include="hbapi\idCreater.hpp" />
+    <ClInclude Include="hbapi\misshbdef.h" />
+    <ClInclude Include="hbapi\misshbfunc.h" />
+    <ClInclude Include="hbapi\msgmarketdetail.h" />
+    <ClInclude Include="hbapi\mspool.hpp" />
+    <ClInclude Include="hbapi\reqmarketdepthtop.h" />
+    <ClInclude Include="hbapi\reqmsgsubscribe.h" />
+    <ClInclude Include="hbapi\requestbase.h" />
+    <ClInclude Include="hbapi\hbparser.h" />
+    <ClInclude Include="hbapi\subscribebase.h" />
+    <ClInclude Include="hbapi\msgtradedetail.h" />
+    <ClInclude Include="hbapi\tradesdata.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="misshuobi.qrc">
