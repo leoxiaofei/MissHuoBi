@@ -5,8 +5,8 @@
 namespace HBAPI
 {
 
-Subscriber::Subscriber()
-	: pSubscribeBase(0)
+Subscriber::Subscriber(SubscribeBase* pBase)
+	: pSubscribeBase(pBase)
 {
 
 }

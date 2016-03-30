@@ -10,6 +10,7 @@
 #include "reqmsgsubscribe.h"
 #include "subscribebase.h"
 #include "msgtradedetail.h"
+#include "msgmarketdetail.h"
 
 
 
@@ -58,6 +59,7 @@ void HbParser::InitParser(QSocketIoClient* pIO)
 	RegRequest<ReqMarketDepthTop>();
 	RegRequest<ReqMsgSubscribe>();
 	RegMessage<MsgTradeDetail>();
+	RegMessage<MsgMarketDetail>();
 }
 
 void HbParser::ParserRequest(const QJsonArray& returnValue)

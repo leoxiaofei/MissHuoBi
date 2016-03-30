@@ -50,6 +50,9 @@ namespace HBAPI
 		"outerDisc",
 		"innerDisc",
 		"totalVolume",
+
+		"period",
+		"percent",
 	};
 
 	const char* szSymbolIdType[] = {

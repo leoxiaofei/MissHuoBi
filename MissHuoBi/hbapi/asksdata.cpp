@@ -21,10 +21,10 @@ namespace HBAPI
 		{
 			AsksData& ad = vecAsksData[ix];
 
-			ad.rPrice = GetRationalValue(jaSubPrice[ix]);
-			ad.nLevel = jaSubLevel[ix].toInt();
-			ad.rAmount = GetRationalValue(jaSubAmount[ix]);
-			ad.rAccuAmount = GetRationalValue(jaSubAccuAmount[ix]);
+			ad.dPrice = jaSubPrice[ix].toDouble();
+			ad.dLevel = jaSubLevel[ix].toDouble();
+			ad.dAmount = jaSubAmount[ix].toDouble();
+			ad.dAccuAmount = jaSubAccuAmount[ix].toDouble();
 		}
 	}
 

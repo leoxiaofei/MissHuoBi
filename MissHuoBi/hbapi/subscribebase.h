@@ -19,7 +19,7 @@ namespace HBAPI
 	class Subscriber
 	{
 	public:
-		Subscriber();
+		Subscriber(SubscribeBase* pBase = NULL);
 		Subscriber(SubscribeBase* pBase, const QJsonObject& json);
 		~Subscriber();
 

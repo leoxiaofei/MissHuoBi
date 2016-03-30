@@ -1,5 +1,6 @@
-#ifndef __REQMSGSUBSCRIBE_H__
-#define __REQMSGSUBSCRIBE_H__
+#ifndef __REQMSGUNSUBSCRIBE_H__
+#define __REQMSGUNSUBSCRIBE_H__
+
 
 
 #include "requestbase.h"
@@ -7,16 +8,16 @@
 
 /*
 能力接口
-推送消息订阅
+推送消息取消订阅
 */
 
 namespace HBAPI
 {
 	class Subscriber;
 
-	class ReqMsgSubscribe : public RequestBase
+	class ReqMsgUnsubscribe : public RequestBase
 	{
-		REQTYPE(reqMsgSubscribe);
+		REQTYPE(reqMsgUnsubscribe);
 	public:
 		int SendRequest(const QVector<Subscriber>& vecSubscriber);
 
@@ -27,4 +28,6 @@ namespace HBAPI
 
 }
 
-#endif // __REQMSGSUBSCRIBE_H__
+
+
+#endif // __REQMSGUNSUBSCRIBE_H__

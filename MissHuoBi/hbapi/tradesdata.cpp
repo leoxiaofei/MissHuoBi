@@ -21,9 +21,9 @@ void ParseTradesData(const QJsonObject& json, QVector<TradesData>& vecTradesData
 	{
 		TradesData& ad = vecTradesData[ix];
 
-		ad.rPrice = GetRationalValue(jaSubPrice[ix]);
-		ad.tTime = jaSubTime[ix].toInt();
-		ad.rAmount = GetRationalValue(jaSubAmount[ix]);
+		ad.dPrice = jaSubPrice[ix].toDouble();
+		ad.tTime = jaSubTime[ix].toDouble();
+		ad.dAmount = jaSubAmount[ix].toDouble();
 		ad.eDirection = static_cast<DirectionType>(jaSubDirection[ix].toInt());
 	}
 }

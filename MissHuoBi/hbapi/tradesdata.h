@@ -1,7 +1,6 @@
 #ifndef __TRADESDATA_H__
 #define __TRADESDATA_H__
 
-#include <boost\rational.hpp>
 #include <QVector>
 
 #include "misshbdef.h"
@@ -15,9 +14,9 @@ namespace HBAPI
 	class TradesData
 	{
 	public:
-		boost::rational<int>	rPrice;				///价格
+		double					dPrice;				///价格
+		double					dAmount;			///成交量
 		time_t					tTime;				///时间
-		boost::rational<int>	rAmount;			///成交量
 		DirectionType			eDirection;			///交易方向：买入和卖出
 	};
 

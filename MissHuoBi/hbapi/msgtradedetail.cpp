@@ -75,9 +75,9 @@ namespace HBAPI
 			TradeDetailData* pData = ptTradeDetail->vecTradeDetailData[ix];
 
 			pData->nTradeId = jaTradeId[ix].toInt();
-			pData->rPrice = GetRationalValue(jaPrice[ix]);
+			pData->dPrice = jaPrice[ix].toDouble();
 			pData->tTime = jaTime[ix].toInt();
-			pData->rAmount = GetRationalValue(jaAmount[ix]);
+			pData->dAmount = jaAmount[ix].toDouble();
 			pData->eDirection = static_cast<DirectionType>(jaDirection[ix].toInt());
 
 			ParseBidsData(jaTopBids[ix].toObject(), pData->vecTopBidsData);

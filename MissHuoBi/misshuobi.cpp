@@ -82,7 +82,7 @@ void MissHuoBi::on_actionRequest_triggered()
 
 	MsgTradeDetail a;
 	MsgMarketDetail b;
-	pReqMsgSubscribe->SendRequest(QVector<Subscriber>() << a.GetSubscriber(SIT_BTCCNY, PT_PUSHLONG)
+	pReqMsgSubscribe->SendRequest(QVector<Subscriber>() << a.GetSubscriber(SIT_BTCCNY, PT_PUSHSHORT)
 		<< b.GetSubscriber(SIT_BTCCNY, PT_PUSHLONG));
 }
 

@@ -52,6 +52,9 @@ namespace HBAPI
 		AN_OUTERDISC,
 		AN_INNERDISC,
 		AN_TOTALVOLUME,
+
+		AN_PERIOD,
+		AN_PERCENT,
 	};
 
 	extern const char* szAttributeName[];

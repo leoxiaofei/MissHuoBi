@@ -1,24 +1,10 @@
 #include "misshbfunc.h"
 #include <QString>
 #include <QJsonValue>
-#include <QtMath>
+#include <boost\rational.hpp>
 
 namespace HBAPI
 {
-
-	int qPow10[] = {
-		1,
-		10,
-		100,
-		1000,
-		10000,
-		100000,
-		1000000,
-		10000000,
-		100000000,
-		1000000000,
-	};
-
 	SymbolIdType GetSymbolIdType(const QString& strSymbolId)
 	{
 		SymbolIdType e(SIT_BTCCNY);
@@ -35,6 +21,18 @@ namespace HBAPI
 		return e;
 	}
 
+	int qPow10[] = {
+		1,
+		10,
+		100,
+		1000,
+		10000,
+		100000,
+		1000000,
+		10000000,
+		100000000,
+		1000000000,
+	};
 
 	boost::rational<int> GetRationalValue(const QJsonValue& jvPrice)
 	{

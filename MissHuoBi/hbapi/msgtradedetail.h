@@ -14,9 +14,9 @@ namespace HBAPI
 	{
 	public:
 		int						nTradeId;			///交易id
-		boost::rational<int>	rPrice;				///价格
 		time_t					tTime;
-		boost::rational<int>	rAmount;			///成交量
+		double					dPrice;				///价格
+		double					dAmount;			///成交量
 		DirectionType			eDirection;			///交易方向：买入和卖出
 
 		QVector<BidsData>		vecTopBidsData;		///Top买单

@@ -22,10 +22,10 @@ void ParseBidsData(const QJsonObject& json, QVector<BidsData>& vecBidsData)
 	{
 		BidsData& bd = vecBidsData[ix];
 
-		bd.rPrice = GetRationalValue(jaSubPrice[ix]);
-		bd.nLevel = jaSubLevel[ix].toInt();
-		bd.rAmount = GetRationalValue(jaSubAmount[ix]);
-		bd.rAccuAmount = GetRationalValue(jaSubAccuAmount[ix]);
+		bd.dPrice = jaSubPrice[ix].toDouble();
+		bd.dLevel = jaSubLevel[ix].toDouble();
+		bd.dAmount = jaSubAmount[ix].toDouble();
+		bd.dAccuAmount = jaSubAccuAmount[ix].toDouble();
 	}
 }
 
