@@ -11,6 +11,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HBAPI", "HBAPI\HBAPI.vcxproj", "{BE9D8E9F-262E-4254-B4FD-9AAB7224C4A4}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HbTest", "HbTest\HbTest.vcxproj", "{B40CD6F3-7BE9-44AF-9C2A-B24CB9B07909}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BE9D8E9F-262E-4254-B4FD-9AAB7224C4A4} = {BE9D8E9F-262E-4254-B4FD-9AAB7224C4A4}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
