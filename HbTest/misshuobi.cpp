@@ -7,13 +7,11 @@
 #include <QJsonObject>
 #include <functional>
 #include <QSocketIoClient>
-#include <QTimer>
 
-#include "panelboard.h"
 #include "hbparser.h"
 #include "req\reqmsgsubscribe.h"
+#include "msg\msgmarketdepthdiff.h"
 #include "common\misshbdef.h"
-#include "msg\msgmarketoverview.h"
 
 using namespace HBAPI;
 
@@ -24,7 +22,7 @@ public:
 	HbParser*   pRP;
 };
 
-typedef void (QSocketIoClient::*Fem)(const QString &, const QVariantMap &);
+typedef void (QSocketIoClient::*FEM)(const QString &, const QVariantMap &);
 typedef std::function<void(const QJsonArray&)> Fp;
 
 MissHuoBi::MissHuoBi(QWidget *parent)
@@ -33,34 +31,24 @@ MissHuoBi::MissHuoBi(QWidget *parent)
 {
 	m_pImpl->pIO = new QSocketIoClient(this);
 	m_pImpl->pIO->setObjectName("sioClient");
-	ui.setupUi(this);
-	Init();
-}
 
-void MissHuoBi::Init()
-{
 	m_pImpl->pRP = new HbParser(this);
-	m_pImpl->pRP->InitParser(std::bind((Fem)&QSocketIoClient::emitMessage, m_pImpl->pIO, std::placeholders::_1, std::placeholders::_2));
+
+	m_pImpl->pRP->InitParser(std::bind((FEM)&QSocketIoClient::emitMessage, m_pImpl->pIO, std::placeholders::_1, std::placeholders::_2));
 
 	m_pImpl->pIO->on("request", (Fp)std::bind(&HbParser::ParserRequest, m_pImpl->pRP, std::placeholders::_1));
 	m_pImpl->pIO->on("message", (Fp)std::bind(&HbParser::ParserMessage, m_pImpl->pRP, std::placeholders::_1));
 
-	MsgMarketOverview* pMsgMarketDetail =
-		m_pImpl->pRP->QueryMessage<MsgMarketOverview>();
+// 	m_pImpl->pIO->on("message", [=](const QJsonArray& returnValue){
+// 		qDebug() << "message:" << returnValue; });
 
-	QObject::connect(pMsgMarketDetail, &MsgMarketOverview::signal_Receive, ui.wgPanelBoard, &PanelBoard::slot_UpadePanel);
+// 	m_pIO->on("connect", [=](const QJsonArray& returnValue){
+// 		qDebug() << "connect."; });
+// 
+// 	m_pIO->on("disconnect", [=](const QJsonArray& returnValue){
+// 		qDebug() << "disconnect."; });
 
-	QTimer::singleShot(1000, this, &MissHuoBi::on_actionConnect_triggered);
-}
-
-void MissHuoBi::Subscribe()
-{
-	ReqMsgSubscribe* pReqMsgSubscribe =
-		m_pImpl->pRP->QueryRequest<ReqMsgSubscribe>();
-
-	///订阅盘口信息
-	pReqMsgSubscribe->SendRequest(QVector<Subscriber>()
-		<< MsgMarketOverview::GetSubscriber(SIT_BTCCNY, PT_PUSHSHORT));
+	ui.setupUi(this);
 }
 
 MissHuoBi::~MissHuoBi()
@@ -85,7 +73,24 @@ void MissHuoBi::on_actionDisconnect_triggered()
 
 void MissHuoBi::on_actionRequest_triggered()
 {
+	//QString strMsg = '{"symbolId":"btccny","version":1,"msgType":"reqMarketDepthTop","requestIndex":1405131204513}';
+// 	m_pImpl->pIO->emitMessage("request", QJsonObject(
+// 	{ { "symbolId", "btccny" }, { "version", "1" }, { "msgType", "reqMarketDepthTop" }, { "requestIndex", "1405131204513" } }
+// 	).toVariantMap());
 
+// 	ReqMarketDepthTop* pReqMarketDepthTop =
+// 		m_pImpl->pRP->QueryRequest<ReqMarketDepthTop>();
+// 	pReqMarketDepthTop->SendRequest("btccny");
+
+	ReqMsgSubscribe* pReqMsgSubscribe =
+		m_pImpl->pRP->QueryRequest<ReqMsgSubscribe>();
+
+	pReqMsgSubscribe->SendRequest(QVector<Subscriber>()
+		<< MsgMarketDepthDiff::GetSubscriber(SIT_BTCCNY, PT_PUSHLONG, QVector<PercentType>() << PT_PERCENT50));
+// 	MsgTradeDetail a;
+// 	MsgMarketDetail b;
+// 	pReqMsgSubscribe->SendRequest(QVector<Subscriber>() << a.GetSubscriber(SIT_BTCCNY, PT_PUSHSHORT)
+// 		<< b.GetSubscriber(SIT_BTCCNY, PT_PUSHLONG));
 }
 
 void MissHuoBi::on_sioClient_heartbeatReceived()
@@ -106,7 +111,6 @@ void MissHuoBi::on_sioClient_errorReceived(const QString& reason, const QString&
 void MissHuoBi::on_sioClient_connected(const QString& endpoint)
 {
 	qDebug() << "on_sioClient_connected:" << endpoint;
-	Subscribe();
 }
 
 void MissHuoBi::on_sioClient_disconnected(const QString& endpoint)

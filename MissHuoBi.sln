@@ -4,6 +4,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MissHuoBi", "MissHuoBi\MissHuoBi.vcxproj", "{B12702AD-ABFB-343A-A199-8E24837244A3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BE9D8E9F-262E-4254-B4FD-9AAB7224C4A4} = {BE9D8E9F-262E-4254-B4FD-9AAB7224C4A4}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HBAPI", "HBAPI\HBAPI.vcxproj", "{BE9D8E9F-262E-4254-B4FD-9AAB7224C4A4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HbTest", "HbTest\HbTest.vcxproj", "{B40CD6F3-7BE9-44AF-9C2A-B24CB9B07909}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +22,19 @@ Global
 		{B12702AD-ABFB-343A-A199-8E24837244A3}.Debug|Win32.Build.0 = Debug|Win32
 		{B12702AD-ABFB-343A-A199-8E24837244A3}.Release|Win32.ActiveCfg = Release|Win32
 		{B12702AD-ABFB-343A-A199-8E24837244A3}.Release|Win32.Build.0 = Release|Win32
+		{BE9D8E9F-262E-4254-B4FD-9AAB7224C4A4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{BE9D8E9F-262E-4254-B4FD-9AAB7224C4A4}.Debug|Win32.Build.0 = Debug|Win32
+		{BE9D8E9F-262E-4254-B4FD-9AAB7224C4A4}.Release|Win32.ActiveCfg = Release|Win32
+		{BE9D8E9F-262E-4254-B4FD-9AAB7224C4A4}.Release|Win32.Build.0 = Release|Win32
+		{B40CD6F3-7BE9-44AF-9C2A-B24CB9B07909}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B40CD6F3-7BE9-44AF-9C2A-B24CB9B07909}.Debug|Win32.Build.0 = Debug|Win32
+		{B40CD6F3-7BE9-44AF-9C2A-B24CB9B07909}.Release|Win32.ActiveCfg = Release|Win32
+		{B40CD6F3-7BE9-44AF-9C2A-B24CB9B07909}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		Qt5Version = 5.6.0
 	EndGlobalSection
 EndGlobal

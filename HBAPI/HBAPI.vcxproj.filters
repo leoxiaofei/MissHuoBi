@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;cxx;c;def</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h</Extensions>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>moc;h;cpp</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Header Files\common">
+      <UniqueIdentifier>{603705e8-6e9b-4bdb-a763-5e282f1d259b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\msg">
+      <UniqueIdentifier>{136aa02f-6e77-4468-8aa5-d24c5b9042b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\req">
+      <UniqueIdentifier>{570a6128-0d16-493a-979e-b22d100caff4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\tools">
+      <UniqueIdentifier>{8ea96af4-9e98-4f38-bcfb-876392cb91de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\msg">
+      <UniqueIdentifier>{323fc83b-df6a-4b6d-ad2b-ca7c5a1809d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common">
+      <UniqueIdentifier>{7d9ea43e-6109-4473-834f-69e5a340e336}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\req">
+      <UniqueIdentifier>{eb60f7d3-fba9-43de-8f08-ce552c101e25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated Files\Debug">
+      <UniqueIdentifier>{f298750f-d7a7-409e-9db1-a0cd9c0a5ed8}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Release">
+      <UniqueIdentifier>{b2c06ae6-2ce9-4d91-9f57-9a2123a92e7b}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\common\misshbdef.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\common\misshbfunc.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\common\tradesdata.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\common\asksdata.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\common\bidsdata.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\msg\msgmarketdepthtopdiff.h">
+      <Filter>Header Files\msg</Filter>
+    </ClInclude>
+    <ClInclude Include="include\msg\msgmarketstatic.h">
+      <Filter>Header Files\msg</Filter>
+    </ClInclude>
+    <ClInclude Include="include\msg\msgtradedetail.h">
+      <Filter>Header Files\msg</Filter>
+    </ClInclude>
+    <ClInclude Include="include\msg\subscribebase.h">
+      <Filter>Header Files\msg</Filter>
+    </ClInclude>
+    <ClInclude Include="include\msg\msglastkline.h">
+      <Filter>Header Files\msg</Filter>
+    </ClInclude>
+    <ClInclude Include="include\msg\msglasttimeline.h">
+      <Filter>Header Files\msg</Filter>
+    </ClInclude>
+    <ClInclude Include="include\msg\msgmarketdepthdiff.h">
+      <Filter>Header Files\msg</Filter>
+    </ClInclude>
+    <ClInclude Include="include\req\reqmarketdepthtop.h">
+      <Filter>Header Files\req</Filter>
+    </ClInclude>
+    <ClInclude Include="include\req\reqmsgsubscribe.h">
+      <Filter>Header Files\req</Filter>
+    </ClInclude>
+    <ClInclude Include="include\req\reqmsgunsubscribe.h">
+      <Filter>Header Files\req</Filter>
+    </ClInclude>
+    <ClInclude Include="include\req\requestbase.h">
+      <Filter>Header Files\req</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tools\idCreater.hpp">
+      <Filter>Header Files\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tools\mspool.hpp">
+      <Filter>Header Files\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tools\arrayalgorithm.hpp">
+      <Filter>Header Files\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="include\hbparser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\hbglobal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\common\misshbdef.cpp">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="source\common\misshbfunc.cpp">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="source\common\tradesdata.cpp">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="source\common\asksdata.cpp">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="source\common\bidsdata.cpp">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="source\msg\msgmarketstatic.cpp">
+      <Filter>Source Files\msg</Filter>
+    </ClCompile>
+    <ClCompile Include="source\msg\msgtradedetail.cpp">
+      <Filter>Source Files\msg</Filter>
+    </ClCompile>
+    <ClCompile Include="source\msg\subscribebase.cpp">
+      <Filter>Source Files\msg</Filter>
+    </ClCompile>
+    <ClCompile Include="source\msg\msglastkline.cpp">
+      <Filter>Source Files\msg</Filter>
+    </ClCompile>
+    <ClCompile Include="source\msg\msglasttimeline.cpp">
+      <Filter>Source Files\msg</Filter>
+    </ClCompile>
+    <ClCompile Include="source\msg\msgmarketdepthdiff.cpp">
+      <Filter>Source Files\msg</Filter>
+    </ClCompile>
+    <ClCompile Include="source\msg\msgmarketdepthtopdiff.cpp">
+      <Filter>Source Files\msg</Filter>
+    </ClCompile>
+    <ClCompile Include="source\msg\msgmarketdetail.cpp">
+      <Filter>Source Files\msg</Filter>
+    </ClCompile>
+    <ClCompile Include="source\msg\msgmarketoverview.cpp">
+      <Filter>Source Files\msg</Filter>
+    </ClCompile>
+    <ClCompile Include="source\req\reqmsgunsubscribe.cpp">
+      <Filter>Source Files\req</Filter>
+    </ClCompile>
+    <ClCompile Include="source\req\requestbase.cpp">
+      <Filter>Source Files\req</Filter>
+    </ClCompile>
+    <ClCompile Include="source\req\reqmarketdepthtop.cpp">
+      <Filter>Source Files\req</Filter>
+    </ClCompile>
+    <ClCompile Include="source\req\reqmsgsubscribe.cpp">
+      <Filter>Source Files\req</Filter>
+    </ClCompile>
+    <ClCompile Include="source\hbparser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_msgmarketoverview.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_msgmarketoverview.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_msgmarketdetail.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_msgmarketdetail.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="include\msg\msgmarketoverview.h">
+      <Filter>Header Files\msg</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\msg\msgmarketdetail.h">
+      <Filter>Header Files\msg</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>

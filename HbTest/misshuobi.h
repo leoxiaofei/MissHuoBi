@@ -17,6 +17,7 @@ public Q_SLOTS:
 	void on_actionConnect_triggered();
 	void on_actionDisconnect_triggered();
 	void on_actionRequest_triggered();
+	
 
 protected Q_SLOTS:
 	void on_sioClient_heartbeatReceived();
@@ -26,8 +27,6 @@ protected Q_SLOTS:
 	void on_sioClient_disconnected(const QString& endpoint);
 
 protected:
-	void Init();
-	void Subscribe();
 
 private:
 	Ui::MissHuoBiClass ui;
