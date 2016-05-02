@@ -6,6 +6,7 @@
 #include "common/bidsdata.h"
 #include "common/asksdata.h"
 
+#include <QSharedPointer>
 #include <QVector>
 
 namespace HBAPI
@@ -35,14 +36,17 @@ namespace HBAPI
 		void Free();
 	};
 
-	class MsgTradeDetail : public SubscribeBase
+	class HBAPI_EXPORT MsgTradeDetail : public SubscribeBase
 	{
+		Q_OBJECT
 		MSGTYPE(tradeDetail);
 	public:
 		static Subscriber GetSubscriber(SymbolIdType eSymbolId, PushType ePushType);
 
 		virtual bool ReceiveJson(const QJsonObject& joPayload) override;
 
+	signals:
+		void signal_Receive(const QSharedPointer<TradeDetailBill>& ptTradeDetailBill);
 	};
 
 }

@@ -28,6 +28,25 @@ namespace HBAPI
 		}
 	}
 
+	void ParseAskDepthData(const QJsonObject& json, QList<AskDepthData>& listDepthData)
+	{
+		QJsonArray jaSubPrice = json[szAttributeName[AN_ASKPRICE]].toArray();
+		QJsonArray jaSubAmount = json[szAttributeName[AN_ASKAMOUNT]].toArray();
+		QJsonArray jaSubTotal = json[szAttributeName[AN_ASKTOTAL]].toArray();
+
+		listDepthData.clear();
+		for (int ix = 0; ix != jaSubPrice.size(); ++ix)
+		{
+			AskDepthData add;
+
+			add.dPrice = jaSubPrice[ix].toDouble();
+			add.dAmount = jaSubAmount[ix].toDouble();
+			add.dTotal = jaSubTotal[ix].toDouble();
+
+			listDepthData.append(add);
+		}
+	}
+
 	void ParseAskInsertData(const QJsonObject& json, QVector<AskInsertData>& vecAskInsertData)
 	{
 		QJsonArray jaSubPrice = json[szAttributeName[AN_PRICE]].toArray();
@@ -74,6 +93,13 @@ namespace HBAPI
 			ad.dAmount = jaSubAmount[ix].toDouble();
 			ad.nRow = jaSubRow[ix].toInt();
 		}
+	}
+
+	bool AskDepthData::operator==(const AskDepthData& other) const
+	{
+		return qFuzzyCompare(this->dPrice, other.dPrice)
+			&& qFuzzyCompare(this->dAmount, other.dAmount)
+			&& qFuzzyCompare(this->dTotal, other.dTotal);
 	}
 
 }

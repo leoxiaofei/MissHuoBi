@@ -8,7 +8,7 @@
 #include <functional>
 #include <QSocketIoClient>
 
-#include "hbparser.h"
+#include "hbmarket.h"
 #include "req\reqmsgsubscribe.h"
 #include "msg\msgmarketdepthdiff.h"
 #include "common\misshbdef.h"
@@ -19,7 +19,7 @@ class MissHuoBi::Impl
 {
 public:
 	QSocketIoClient* pIO;
-	HbParser*   pRP;
+	HbMarket*   pRP;
 };
 
 typedef void (QSocketIoClient::*FEM)(const QString &, const QVariantMap &);
@@ -32,12 +32,12 @@ MissHuoBi::MissHuoBi(QWidget *parent)
 	m_pImpl->pIO = new QSocketIoClient(this);
 	m_pImpl->pIO->setObjectName("sioClient");
 
-	m_pImpl->pRP = new HbParser(this);
+	m_pImpl->pRP = new HbMarket(this);
 
 	m_pImpl->pRP->InitParser(std::bind((FEM)&QSocketIoClient::emitMessage, m_pImpl->pIO, std::placeholders::_1, std::placeholders::_2));
 
-	m_pImpl->pIO->on("request", (Fp)std::bind(&HbParser::ParserRequest, m_pImpl->pRP, std::placeholders::_1));
-	m_pImpl->pIO->on("message", (Fp)std::bind(&HbParser::ParserMessage, m_pImpl->pRP, std::placeholders::_1));
+	m_pImpl->pIO->on("request", (Fp)std::bind(&HbMarket::ParserRequest, m_pImpl->pRP, std::placeholders::_1));
+	m_pImpl->pIO->on("message", (Fp)std::bind(&HbMarket::ParserMessage, m_pImpl->pRP, std::placeholders::_1));
 
 // 	m_pImpl->pIO->on("message", [=](const QJsonArray& returnValue){
 // 		qDebug() << "message:" << returnValue; });

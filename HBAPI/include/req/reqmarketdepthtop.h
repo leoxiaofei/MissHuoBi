@@ -3,6 +3,8 @@
 
 #include "requestbase.h"
 
+#include <QSharedPointer>
+
 /*
 历史数据接口
 获取Top行情深度
@@ -10,8 +12,11 @@
 
 namespace HBAPI
 {
+	class MarketDepthTopData;
+
 	class HBAPI_EXPORT ReqMarketDepthTop : public RequestBase
 	{
+		Q_OBJECT
 		REQTYPE(reqMarketDepthTop);
 	public:
 		ReqMarketDepthTop();
@@ -22,6 +27,8 @@ namespace HBAPI
 	protected:
 		virtual bool ReceiveJson(const QJsonObject& json) override;
 
+	signals:
+		void signal_Receive(const QSharedPointer<MarketDepthTopData>& ptMarketDepthTopData);
 	};
 
 }

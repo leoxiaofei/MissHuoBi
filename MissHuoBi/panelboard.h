@@ -20,6 +20,8 @@ public:
 public slots:
 	void slot_UpadePanel(const QSharedPointer<MarketOverviewData>& ptMarketOverviewData);
 
+	virtual QSize sizeHint() const override;
+
 private:
 	Ui::PanelBoard ui;
 };

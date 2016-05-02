@@ -23,6 +23,18 @@ namespace HBAPI
 
 	void ParseBidsData(const QJsonObject& json, QVector<BidsData>& vecBidsData);
 
+	class HBAPI_EXPORT BidDepthData
+	{
+	public:
+		double	dPrice;				///价格
+		double	dAmount;			///成交量
+		double	dTotal;				///累计委单量
+
+		bool operator == (const BidDepthData& other) const;
+	};
+
+	void ParseBidDepthData(const QJsonObject& json, QList<BidDepthData>& listDepthData);
+
 	class HBAPI_EXPORT BidInsertData
 	{
 	public:

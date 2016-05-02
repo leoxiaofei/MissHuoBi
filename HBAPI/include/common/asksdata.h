@@ -23,6 +23,18 @@ namespace HBAPI
 
 	void ParseAsksData(const QJsonObject& json, QVector<AsksData>& vecAsksData);
 
+	class HBAPI_EXPORT AskDepthData
+	{
+	public:
+		double	dPrice;				///价格
+		double	dAmount;			///成交量
+		double	dTotal;				///累计委单量
+
+		bool operator == (const AskDepthData& other) const;
+	};
+
+	void ParseAskDepthData(const QJsonObject& json, QList<AskDepthData>& listDepthData);
+
 	class HBAPI_EXPORT AskInsertData
 	{
 	public:

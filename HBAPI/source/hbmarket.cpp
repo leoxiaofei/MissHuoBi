@@ -1,8 +1,7 @@
-#include "hbparser.h"
+#include "hbmarket.h"
 
 #include <QMap>
 #include <QJsonObject>
-#include <QLatin1String>
 #include <QDebug>
 
 #include "req/requestbase.h"
@@ -19,15 +18,16 @@
 #include "msg/msgmarketdepthtopdiff.h"
 #include "msg/msgmarketoverview.h"
 #include "msg/msgmarketstatic.h"
+#include "req/reqmarketdepth.h"
 
 
 
 namespace HBAPI
 {
-	typedef QHash<QLatin1String, QSharedPointer<RequestBase> >   HsRequest;
-	typedef QHash<QLatin1String, QSharedPointer<SubscribeBase> > HsMessage;
+	typedef QHash<QString, QSharedPointer<RequestBase> >   HsRequest;
+	typedef QHash<QString, QSharedPointer<SubscribeBase> > HsMessage;
 
-class HbParser::Impl
+class HbMarket::Impl
 {
 public:
 	FuncEmitMessage emitMessage;
@@ -39,19 +39,19 @@ public:
 
 };
 
-HbParser::HbParser(QObject* parent)
+HbMarket::HbMarket(QObject* parent)
 : QObject(parent)
 , m_pImpl(new Impl)
 {
 	
 }
 
-HbParser::~HbParser()
+HbMarket::~HbMarket()
 {
 
 }
 
-void HbParser::InitParser(const FuncEmitMessage& emitMessage)
+void HbMarket::InitParser(const FuncEmitMessage& emitMessage)
 {
 	m_pImpl->emitMessage = emitMessage;
 
@@ -60,6 +60,7 @@ void HbParser::InitParser(const FuncEmitMessage& emitMessage)
 
 	//////////////////////////////////////////////////////////////////////////
 
+	RegRequest<ReqMarketDepth>();
 	RegRequest<ReqMarketDepthTop>();
 	RegRequest<ReqMsgSubscribe>();
 	RegRequest<ReqMsgUnsubscribe>();
@@ -74,7 +75,7 @@ void HbParser::InitParser(const FuncEmitMessage& emitMessage)
 
 }
 
-void HbParser::ParserRequest(const QJsonArray& returnValue)
+void HbMarket::ParserRequest(const QJsonArray& returnValue)
 {
 	for (QJsonArray::const_iterator citor = returnValue.constBegin();
 		citor != returnValue.constEnd(); ++citor)
@@ -91,23 +92,21 @@ void HbParser::ParserRequest(const QJsonArray& returnValue)
 					break;
 				}
 
-				qDebug() << json[szAttributeName[AN_REQUESTINDEX]].toInt();
-
 				if (json[szAttributeName[AN_RETCODE]].toInt() != CODE_OK)
 				{
 					qDebug() << "ErrorCode:" << json[szAttributeName[AN_RETCODE]];
 					break;
 				}
 
-				QByteArray baMsgType = json[szAttributeName[AN_MSGTYPE]].toString().toLatin1();
+				QString strMsgType = json[szAttributeName[AN_MSGTYPE]].toString();
 				HsRequest::const_iterator ciFind = 
-					m_pImpl->hsRequest.constFind(QLatin1String(baMsgType.data(), baMsgType.size()));
+					m_pImpl->hsRequest.constFind(strMsgType);
 				if (ciFind == m_pImpl->hsRequest.constEnd())
 				{
 					break;
 				}
 
-				(*ciFind)->ReceiveJson(json);
+				(*ciFind)->ReceiveJson(json[szAttributeName[AN_PAYLOAD]].toObject());
 
 			} while (0);
 
@@ -115,14 +114,14 @@ void HbParser::ParserRequest(const QJsonArray& returnValue)
 	}
 }
 
-void HbParser::RegRequestBase(const char* sz, RequestBase* pBase)
+void HbMarket::RegRequestBase(const char* sz, RequestBase* pBase)
 {
-	pBase->SetSendFunc(std::bind(&HbParser::Packer, this, std::placeholders::_1));
-	m_pImpl->hsRequest[QLatin1String(sz)] = QSharedPointer<RequestBase>(pBase);
+	pBase->SetSendFunc(std::bind(&HbMarket::Packer, this, std::placeholders::_1));
+	m_pImpl->hsRequest[QString(sz)] = QSharedPointer<RequestBase>(pBase);
 }
 
 template<class T>
-void HbParser::PrintJson(const T& json)
+void HbMarket::PrintJson(const T& json)
 {
 	for (T::const_iterator citorjson = json.constBegin();
 		citorjson != json.constEnd(); ++citorjson)
@@ -131,7 +130,7 @@ void HbParser::PrintJson(const T& json)
 	}
 }
 
-int HbParser::Packer(QJsonObject& json)
+int HbMarket::Packer(QJsonObject& json)
 {
 	int nRet = m_pImpl->icRequestIndex();
 
@@ -143,12 +142,12 @@ int HbParser::Packer(QJsonObject& json)
 	return nRet;
 }
 
-RequestBase* HbParser::QueryRequestBase(const char* sz) const
+RequestBase* HbMarket::QueryRequestBase(const char* sz) const
 {
-	return m_pImpl->hsRequest.value(QLatin1String(sz)).data();
+	return m_pImpl->hsRequest.value(QString(sz)).data();
 }
 
-void HbParser::ParserMessage(const QJsonArray& returnValue)
+void HbMarket::ParserMessage(const QJsonArray& returnValue)
 {
 	for (QJsonArray::const_iterator citor = returnValue.constBegin();
 		citor != returnValue.constEnd(); ++citor)
@@ -165,11 +164,9 @@ void HbParser::ParserMessage(const QJsonArray& returnValue)
 					break;
 				}
 
-				qDebug() << json[szAttributeName[AN_MSGTYPE]].toString();
-
-				QByteArray baMsgType = json[szAttributeName[AN_MSGTYPE]].toString().toLatin1();
+				QString strMsgType = json[szAttributeName[AN_MSGTYPE]].toString();
 				HsMessage::const_iterator ciFind =
-					m_pImpl->hsMessage.constFind(QLatin1String(baMsgType.data(), baMsgType.size()));
+					m_pImpl->hsMessage.constFind(strMsgType);
 				if (ciFind == m_pImpl->hsMessage.constEnd())
 				{
 					break;
@@ -183,15 +180,15 @@ void HbParser::ParserMessage(const QJsonArray& returnValue)
 	}
 }
 
-void HbParser::RegMessageBase(const char* sz, SubscribeBase* pBase)
+void HbMarket::RegMessageBase(const char* sz, SubscribeBase* pBase)
 {
-	m_pImpl->hsMessage[QLatin1String(sz)] = QSharedPointer<SubscribeBase>(pBase);
+	m_pImpl->hsMessage[QString(sz)] = QSharedPointer<SubscribeBase>(pBase);
 
 }
 
-SubscribeBase* HbParser::QueryMessageBase(const char* sz) const
+SubscribeBase* HbMarket::QueryMessageBase(const char* sz) const
 {
-	return m_pImpl->hsMessage.value(QLatin1String(sz)).data();
+	return m_pImpl->hsMessage.value(QString(sz)).data();
 }
 
 }

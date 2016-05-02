@@ -35,7 +35,7 @@ bool MsgLastKLine::ReceiveJson(const QJsonObject& joPayload)
 
 	ptLastKLineData->eSymbolId = GetSymbolIdType(joPayload[szAttributeName[AN_SYMBOLID]].toString());
 	ptLastKLineData->ePeriod = GetPeriodType(joPayload[szAttributeName[AN_PERIOD]].toString());
-	ptLastKLineData->tTime = joPayload[szAttributeName[AN_TIME]].toInt();
+	ptLastKLineData->tTime = joPayload[szAttributeName[AN_TIME]].toDouble();
 	ptLastKLineData->dPriceOpen = joPayload[szAttributeName[AN_PRICEOPEN]].toDouble();
 	ptLastKLineData->dPriceHigh = joPayload[szAttributeName[AN_PRICEHIGH]].toDouble();
 	ptLastKLineData->dPriceLow = joPayload[szAttributeName[AN_PRICELOW]].toDouble();

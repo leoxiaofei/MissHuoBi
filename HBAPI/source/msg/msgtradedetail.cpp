@@ -3,7 +3,6 @@
 #include "common/misshbfunc.h"
 
 #include <QJsonObject>
-#include <QSharedPointer>
 
 namespace HBAPI
 {
@@ -84,6 +83,8 @@ namespace HBAPI
 
 			ParseAsksData(jaTopAsks[ix].toObject(), pData->vecTopAsksData);
 		}
+
+		emit signal_Receive(ptTradeDetail);
 
 		return true;
 	}

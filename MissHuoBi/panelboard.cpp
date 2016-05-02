@@ -28,3 +28,9 @@ void PanelBoard::slot_UpadePanel(const QSharedPointer<MarketOverviewData>& ptMar
 		ptMarketOverviewData->dPriceOpen) / ptMarketOverviewData->dPriceOpen * 100, 'f', 2) + "%");
 	ui.lblAmount->setText(strBC + QString::number(ptMarketOverviewData->dTotalAmount, 'f', 4));
 }
+
+QSize PanelBoard::sizeHint() const
+{
+	return QSize(250, 135);
+}
+

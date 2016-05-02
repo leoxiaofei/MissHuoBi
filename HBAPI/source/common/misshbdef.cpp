@@ -68,6 +68,14 @@ namespace HBAPI
 
 		"priceAsk",
 		"priceBid",
+
+		"askPrice",
+		"askAmount",
+		"askTotal",
+
+		"bidPrice",
+		"bidAmount",
+		"bidTotal",
 	};
 
 	const char* szSymbolIdType[] = {
@@ -117,5 +125,21 @@ namespace HBAPI
 	const int TRADE_DETAIL_LIMIT_SIZE = 300;        // 交易明细缺省条数
 	const int AMOUNT_DOT_LENGTH = 4;                // 成交量小数点长度
 	const int VOLUME_DOT_LENGTH = 2;                // 成交额小数点长度
+
+	QLatin1String szRestKName[] = {
+		QLatin1String("method"),
+		QLatin1String("access_key"),
+		QLatin1String("created"),
+		QLatin1String("sign"),
+		QLatin1String("secret_key"),
+		QLatin1String("market"),
+	};
+
+
+	const char* szMarketType[] = {
+		"cny",
+		"usd",
+		0
+	};
 
 }

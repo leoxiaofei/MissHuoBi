@@ -1,10 +1,12 @@
 #include "req/reqmarketdepthtop.h"
-#include <QJsonObject>
+#include "common/marketdepthtopdata.h"
+#include "tools/mspool.hpp"
 
+#include <QJsonObject>
 
 namespace HBAPI
 {
-
+	typedef MsPool<class Tag, MarketDepthTopData> MPMDTD;
 
 ReqMarketDepthTop::ReqMarketDepthTop()
 {
@@ -25,6 +27,12 @@ int ReqMarketDepthTop::SendRequest(SymbolIdType eSymbolId)
 
 bool ReqMarketDepthTop::ReceiveJson(const QJsonObject& json)
 {
+	QSharedPointer<MarketDepthTopData> ptMarketDepthTopData(MPMDTD::New(), &MPMDTD::Free);
+
+	ParseMarketDepthTopData(json, *ptMarketDepthTopData);
+
+	emit signal_Receive(ptMarketDepthTopData);
+
 	return true;
 }
 

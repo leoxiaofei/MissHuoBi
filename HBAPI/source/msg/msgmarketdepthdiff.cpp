@@ -2,6 +2,7 @@
 
 #include "tools/mspool.hpp"
 #include "common/misshbfunc.h"
+#include "common/marketdepthdata.h"
 
 #include <QJsonObject>
 #include <QSharedPointer>
@@ -47,8 +48,12 @@ namespace HBAPI
 		ParseBidDeleteData(joPayload[szAttributeName[AN_BIDDELETE]].toArray(), ptMarketDepthDiffData->vecBidDeleteData);
 		ParseBidUpdateData(joPayload[szAttributeName[AN_BIDUPDATE]].toObject(), ptMarketDepthDiffData->vecBidUpdateData);
 
-		return false;
+		emit signal_Receive(ptMarketDepthDiffData);
+
+		return true;
 
 	}
+
+
 
 }

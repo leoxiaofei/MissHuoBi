@@ -1,6 +1,7 @@
 #ifndef __MISSHBDEF_H__
 #define __MISSHBDEF_H__
 
+#include <QLatin1String>
 
 namespace HBAPI
 {
@@ -70,6 +71,13 @@ namespace HBAPI
 
 		AN_PRICEASK,
 		AN_PRICEBID,
+
+		AN_ASKPRICE,
+		AN_ASKAMOUNT,
+		AN_ASKTOTAL,
+		AN_BIDPRICE,
+		AN_BIDAMOUNT,
+		AN_BIDTOTAL,
 	};
 
 	extern const char* szAttributeName[];
@@ -136,6 +144,8 @@ namespace HBAPI
 	enum DirectionType {
 		DT_BUYING = 1, 
 		DT_SELLING,
+		DT_BUYING2,
+		DT_SELLIN2,
 	};
 
 	extern const int MARKET_DEPTH_TOP_SHORT_LENGTH;    // 短的top行情深度
@@ -146,6 +156,25 @@ namespace HBAPI
 	extern const int TRADE_DETAIL_LIMIT_SIZE;          // 交易明细缺省条数
 	extern const int AMOUNT_DOT_LENGTH;                // 成交量小数点长度
 	extern const int VOLUME_DOT_LENGTH;                // 成交额小数点长度
+
+
+	enum RestKName {
+		RK_METHOD,
+		RK_ACCESS_KEY,
+		RK_CREATED,
+		RK_SIGN,
+		RK_SECRET_KEY,
+		RK_MARKET,
+	};
+
+	extern QLatin1String szRestKName[];
+
+	enum MarketType {
+		MT_CNY,
+		MT_USD,
+	};
+
+	extern const char* szMarketType[];
 
 }
 

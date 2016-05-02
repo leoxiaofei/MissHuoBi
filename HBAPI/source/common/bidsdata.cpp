@@ -29,7 +29,25 @@ void ParseBidsData(const QJsonObject& json, QVector<BidsData>& vecBidsData)
 	}
 }
 
+void ParseBidDepthData(const QJsonObject& json, QList<BidDepthData>& listDepthData)
+{
+	QJsonArray jaSubPrice = json[szAttributeName[AN_BIDPRICE]].toArray();
+	QJsonArray jaSubAmount = json[szAttributeName[AN_BIDAMOUNT]].toArray();
+	QJsonArray jaSubTotal = json[szAttributeName[AN_BIDTOTAL]].toArray();
 
+	listDepthData.clear();
+
+	for (int ix = 0; ix != jaSubPrice.size(); ++ix)
+	{
+		BidDepthData bdd;
+
+		bdd.dPrice = jaSubPrice[ix].toDouble();
+		bdd.dAmount = jaSubAmount[ix].toDouble();
+		bdd.dTotal = jaSubTotal[ix].toDouble();
+
+		listDepthData.append(bdd);
+	}
+}
 
 void ParseBidInsertData(const QJsonObject& json, QVector<BidInsertData>& vecBidInsertData)
 {
@@ -77,6 +95,13 @@ void ParseBidUpdateData(const QJsonObject& json, QVector<BidUpdateData>& vecBidU
 		bd.dAmount = jaSubAmount[ix].toDouble();
 		bd.nRow = jaSubRow[ix].toInt();
 	}
+}
+
+bool BidDepthData::operator==(const BidDepthData& other) const
+{
+	return qFuzzyCompare(this->dPrice, other.dPrice)
+		&& qFuzzyCompare(this->dAmount, other.dAmount)
+		&& qFuzzyCompare(this->dTotal, other.dTotal);
 }
 
 }

@@ -17,6 +17,8 @@ public Q_SLOTS:
 	void on_actionConnect_triggered();
 	void on_actionDisconnect_triggered();
 	void on_actionRequest_triggered();
+	void slot_ReloadMarketDepth();
+	void slot_ReloadMarketDepthTop();
 
 protected Q_SLOTS:
 	void on_sioClient_heartbeatReceived();
@@ -28,6 +30,8 @@ protected Q_SLOTS:
 protected:
 	void Init();
 	void Subscribe();
+
+	virtual void closeEvent(QCloseEvent * ev) override;
 
 private:
 	Ui::MissHuoBiClass ui;

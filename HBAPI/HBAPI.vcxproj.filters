@@ -54,6 +54,12 @@
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
+    <Filter Include="Header Files\rest">
+      <UniqueIdentifier>{1ed9507e-a1ec-47d8-8b3d-710406ea1e92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\rest">
+      <UniqueIdentifier>{2f940fef-32c8-40b5-9611-7dc4858ac49b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\common\misshbdef.h">
@@ -71,16 +77,7 @@
     <ClInclude Include="include\common\bidsdata.h">
       <Filter>Header Files\common</Filter>
     </ClInclude>
-    <ClInclude Include="include\msg\msgmarketdepthtopdiff.h">
-      <Filter>Header Files\msg</Filter>
-    </ClInclude>
     <ClInclude Include="include\msg\msgmarketstatic.h">
-      <Filter>Header Files\msg</Filter>
-    </ClInclude>
-    <ClInclude Include="include\msg\msgtradedetail.h">
-      <Filter>Header Files\msg</Filter>
-    </ClInclude>
-    <ClInclude Include="include\msg\subscribebase.h">
       <Filter>Header Files\msg</Filter>
     </ClInclude>
     <ClInclude Include="include\msg\msglastkline.h">
@@ -88,12 +85,6 @@
     </ClInclude>
     <ClInclude Include="include\msg\msglasttimeline.h">
       <Filter>Header Files\msg</Filter>
-    </ClInclude>
-    <ClInclude Include="include\msg\msgmarketdepthdiff.h">
-      <Filter>Header Files\msg</Filter>
-    </ClInclude>
-    <ClInclude Include="include\req\reqmarketdepthtop.h">
-      <Filter>Header Files\req</Filter>
     </ClInclude>
     <ClInclude Include="include\req\reqmsgsubscribe.h">
       <Filter>Header Files\req</Filter>
@@ -113,10 +104,31 @@
     <ClInclude Include="include\tools\arrayalgorithm.hpp">
       <Filter>Header Files\tools</Filter>
     </ClInclude>
-    <ClInclude Include="include\hbparser.h">
+    <ClInclude Include="include\hbglobal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\hbglobal.h">
+    <ClInclude Include="include\common\marketdepthdata.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\common\marketdepthtopdata.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\common\misshbtext.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\hbmarket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\hbrest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rest\restrequestbase.h">
+      <Filter>Header Files\rest</Filter>
+    </ClInclude>
+    <ClInclude Include="include\common\mapkv.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\hbrestlinker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -175,9 +187,6 @@
     <ClCompile Include="source\req\reqmsgsubscribe.cpp">
       <Filter>Source Files\req</Filter>
     </ClCompile>
-    <ClCompile Include="source\hbparser.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_msgmarketoverview.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -190,6 +199,72 @@
     <ClCompile Include="GeneratedFiles\Release\moc_msgmarketdetail.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="source\req\reqmarketdepth.cpp">
+      <Filter>Source Files\req</Filter>
+    </ClCompile>
+    <ClCompile Include="source\common\marketdepthdata.cpp">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_reqmarketdepth.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_reqmarketdepth.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="source\common\marketdepthtopdata.cpp">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_reqmarketdepthtop.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_reqmarketdepthtop.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_msgmarketdepthdiff.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_msgmarketdepthdiff.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_msgmarketdepthtopdiff.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_msgmarketdepthtopdiff.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="source\common\misshbtext.cpp">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_msgtradedetail.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_msgtradedetail.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="source\hbmarket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\hbrest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\rest\restrequestbase.cpp">
+      <Filter>Source Files\rest</Filter>
+    </ClCompile>
+    <ClCompile Include="source\common\mapkv.cpp">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="source\hbrestlinker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\rest\restgetaccountinfo.cpp">
+      <Filter>Source Files\rest</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_restgetaccountinfo.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_restgetaccountinfo.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="include\msg\msgmarketoverview.h">
@@ -197,6 +272,27 @@
     </CustomBuild>
     <CustomBuild Include="include\msg\msgmarketdetail.h">
       <Filter>Header Files\msg</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\req\reqmarketdepth.h">
+      <Filter>Header Files\req</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\msg\msgmarketdepthdiff.h">
+      <Filter>Header Files\msg</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\req\reqmarketdepthtop.h">
+      <Filter>Header Files\req</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\msg\msgmarketdepthtopdiff.h">
+      <Filter>Header Files\msg</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\msg\msgtradedetail.h">
+      <Filter>Header Files\msg</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\msg\subscribebase.h">
+      <Filter>Header Files\msg</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\rest\restgetaccountinfo.h">
+      <Filter>Header Files\rest</Filter>
     </CustomBuild>
   </ItemGroup>
 </Project>

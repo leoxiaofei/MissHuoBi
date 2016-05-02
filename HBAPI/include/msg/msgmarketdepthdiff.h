@@ -8,23 +8,11 @@
 
 namespace HBAPI
 {
-	class HBAPI_EXPORT MarketDepthDiffData
-	{
-	public:
-		SymbolIdType				eSymbolId;
-		PercentType					ePercentType;
-		quint64						uVersion;
-		quint64						uVersionOld;
-		QVector<AskInsertData>		vecAskInsertData;
-		QVector<AskDeleteData>		vecAskDeleteData;
-		QVector<AskUpdateData>		vecAskUpdateData;
-		QVector<BidInsertData>		vecBidInsertData;
-		QVector<BidDeleteData>		vecBidDeleteData;
-		QVector<BidUpdateData>		vecBidUpdateData;
-	};
+	class MarketDepthDiffData;
 
 	class HBAPI_EXPORT MsgMarketDepthDiff : public SubscribeBase
 	{
+		Q_OBJECT
 		MSGTYPE(marketDepthDiff);
 	public:
 		static Subscriber GetSubscriber(SymbolIdType eSymbolId, PushType ePushType,
@@ -34,6 +22,8 @@ namespace HBAPI
 
 	protected:
 
+	signals:
+		void signal_Receive(const QSharedPointer<MarketDepthDiffData>& ptMarketDepthDiffData);
 	};
 
 }

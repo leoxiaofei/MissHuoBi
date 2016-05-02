@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <functional>
+#include <QObject>
 #include "common/misshbdef.h"
 #include "hbglobal.h"
 
@@ -18,7 +19,7 @@ typedef std::function<int(QJsonObject&)> SendFunc;
 
 namespace HBAPI
 {
-	class HBAPI_EXPORT RequestBase
+	class HBAPI_EXPORT RequestBase : public QObject
 	{
 	public:
 		virtual const char* GetReqType() const = 0;
@@ -34,7 +35,5 @@ namespace HBAPI
 	};
 
 }
-
-
 
 #endif // __REQUESTBASE_H__

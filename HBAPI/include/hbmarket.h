@@ -15,11 +15,11 @@ namespace HBAPI
 	class RequestBase;
 	class SubscribeBase;
 
-	class HBAPI_EXPORT HbParser : public QObject
+	class HBAPI_EXPORT HbMarket : public QObject
 	{
 	public:
-		HbParser(QObject* parent);
-		~HbParser();
+		HbMarket(QObject* parent);
+		~HbMarket();
 
 		void InitParser(const FuncEmitMessage& emitMessage);
 

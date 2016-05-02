@@ -4,7 +4,6 @@
 
 namespace HBAPI
 {
-
 	void RequestBase::SetSendFunc(const SendFunc& funcSend)
 	{
 		m_funcSend = funcSend;
@@ -16,6 +15,5 @@ namespace HBAPI
 
 		return m_funcSend(json);
 	}
-
 
 }

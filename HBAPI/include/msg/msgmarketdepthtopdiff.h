@@ -8,29 +8,19 @@
 
 namespace HBAPI
 {
-	class HBAPI_EXPORT MarketDepthTopDiffData
-	{
-	public:
-		SymbolIdType				eSymbolId;
-		quint64						uVersion;
-		quint64						uVersionOld;
-		QVector<AskInsertData>		vecAskInsertData;
-		QVector<AskDeleteData>		vecAskDeleteData;
-		QVector<AskUpdateData>		vecAskUpdateData;
-		QVector<BidInsertData>		vecBidInsertData;
-		QVector<BidDeleteData>		vecBidDeleteData;
-		QVector<BidUpdateData>		vecBidUpdateData;
-	};
+	class MarketDepthTopDiffData;
 
 	class HBAPI_EXPORT MsgMarketDepthTopDiff : public SubscribeBase
 	{
+		Q_OBJECT
 		MSGTYPE(marketDepthTopDiff);
 	public:
 		static Subscriber GetSubscriber(SymbolIdType eSymbolId, PushType ePushType);
 
 		virtual bool ReceiveJson(const QJsonObject& joPayload) override;
 
-	protected:
+	signals:
+		void signal_Receive(const QSharedPointer<MarketDepthTopDiffData>& ptMarketDepthTopDiffData);
 
 	};
 
