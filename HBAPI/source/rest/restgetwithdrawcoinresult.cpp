@@ -1,4 +1,4 @@
-#include "rest\restgetaccountinfo.h"
+#include "rest\restgetwithdrawcoinresult.h"
 #include "common\mapkv.h"
 
 #include <QDebug>
@@ -6,9 +6,11 @@
 namespace HBAPI
 {
 
-	void RestGetAccountInfo::SendRequest(MarketType eMarketType)
+	void RestGetWithdrawCoinResult::SendRequest(
+		unsigned int uWithdrawCoinId, MarketType eMarketType)
 	{
 		MapKV mapParams;
+		mapParams.insert(szRestKName[RK_WITHDRAW_COIN_ID], uWithdrawCoinId);
 
 		if (eMarketType != MT_CNY)
 		{
@@ -22,7 +24,7 @@ namespace HBAPI
 		}
 	}
 
-	bool RestGetAccountInfo::ReceiveJson(const QJsonDocument& json)
+	bool RestGetWithdrawCoinResult::ReceiveJson(const QJsonDocument& json)
 	{
 		qDebug() << json;
 

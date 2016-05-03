@@ -29,7 +29,7 @@ namespace HBAPI
 	{
 	public:
 		virtual const char* GetRestType() const = 0;
-		virtual bool ReceiveJson(const QJsonObject& json) = 0;
+		virtual bool ReceiveJson(const QJsonDocument& json) = 0;
 
 		void SetSendFunc(const SendRestFunc& funcSend);
 

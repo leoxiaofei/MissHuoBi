@@ -165,6 +165,19 @@ namespace HBAPI
 		RK_SIGN,
 		RK_SECRET_KEY,
 		RK_MARKET,
+		RK_COIN_TYPE,
+		RK_ID,
+		RK_PRICE,
+		RK_AMOUNT,
+		RK_TRADE_ID,
+		RK_WITHDRAW_ADDRESS,
+		RK_WITHDRAW_AMOUNT,
+		RK_WITHDRAW_COIN_ID,
+		RK_ACCOUNT_FROM,
+		RK_ACCOUNT_TO,
+		RK_LOAN_TYPE,
+		RK_LOAN_ID,
+		RK_REPAY_ALL,
 	};
 
 	extern QLatin1String szRestKName[];
@@ -176,6 +189,22 @@ namespace HBAPI
 
 	extern const char* szMarketType[];
 
+	enum CoinType {
+		CT_BTC = 1,
+		CT_LTC,
+	};
+
+	enum AccountType {
+		AT_CNY = 1,
+		AT_USD,
+	};
+
+	enum LoanType {
+		LT_CNY = 1,
+		LT_BTC,
+		LT_LTC,
+		LT_USD,
+	};
 }
 
 

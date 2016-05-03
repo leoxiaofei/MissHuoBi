@@ -265,6 +265,159 @@
     <ClCompile Include="GeneratedFiles\Release\moc_restgetaccountinfo.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_restcancelorder.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_restcancelorder.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_restcancelwithdrawcoin.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_restcancelwithdrawcoin.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_restgetloanavailable.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_restgetloanavailable.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_restgetloans.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_restgetloans.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_restgetnewdealorders.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_restgetnewdealorders.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_restgetorderidbytradeid.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_restgetorderidbytradeid.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_restgetorders.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_restgetorders.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_restgetwithdrawcoinresult.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_restgetwithdrawcoinresult.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_restloan.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_restloan.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_restorderinfo.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_restorderinfo.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_restrepayment.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_restrepayment.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_restsell.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_restsell.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_restsellmarket.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_restsellmarket.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_resttransfer.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_resttransfer.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_restwithdrawcoin.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_restwithdrawcoin.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_restbuy.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_restbuy.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_restbuymarket.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_restbuymarket.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="source\rest\restgetorderidbytradeid.cpp">
+      <Filter>Source Files\rest</Filter>
+    </ClCompile>
+    <ClCompile Include="source\rest\restgetorders.cpp">
+      <Filter>Source Files\rest</Filter>
+    </ClCompile>
+    <ClCompile Include="source\rest\restgetwithdrawcoinresult.cpp">
+      <Filter>Source Files\rest</Filter>
+    </ClCompile>
+    <ClCompile Include="source\rest\restloan.cpp">
+      <Filter>Source Files\rest</Filter>
+    </ClCompile>
+    <ClCompile Include="source\rest\restorderinfo.cpp">
+      <Filter>Source Files\rest</Filter>
+    </ClCompile>
+    <ClCompile Include="source\rest\restrepayment.cpp">
+      <Filter>Source Files\rest</Filter>
+    </ClCompile>
+    <ClCompile Include="source\rest\restsell.cpp">
+      <Filter>Source Files\rest</Filter>
+    </ClCompile>
+    <ClCompile Include="source\rest\restsellmarket.cpp">
+      <Filter>Source Files\rest</Filter>
+    </ClCompile>
+    <ClCompile Include="source\rest\resttransfer.cpp">
+      <Filter>Source Files\rest</Filter>
+    </ClCompile>
+    <ClCompile Include="source\rest\restwithdrawcoin.cpp">
+      <Filter>Source Files\rest</Filter>
+    </ClCompile>
+    <ClCompile Include="source\rest\restbuy.cpp">
+      <Filter>Source Files\rest</Filter>
+    </ClCompile>
+    <ClCompile Include="source\rest\restbuymarket.cpp">
+      <Filter>Source Files\rest</Filter>
+    </ClCompile>
+    <ClCompile Include="source\rest\restcancelorder.cpp">
+      <Filter>Source Files\rest</Filter>
+    </ClCompile>
+    <ClCompile Include="source\rest\restcancelwithdrawcoin.cpp">
+      <Filter>Source Files\rest</Filter>
+    </ClCompile>
+    <ClCompile Include="source\rest\restgetloanavailable.cpp">
+      <Filter>Source Files\rest</Filter>
+    </ClCompile>
+    <ClCompile Include="source\rest\restgetloans.cpp">
+      <Filter>Source Files\rest</Filter>
+    </ClCompile>
+    <ClCompile Include="source\rest\restgetnewdealorders.cpp">
+      <Filter>Source Files\rest</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="include\msg\msgmarketoverview.h">
@@ -292,6 +445,57 @@
       <Filter>Header Files\msg</Filter>
     </CustomBuild>
     <CustomBuild Include="include\rest\restgetaccountinfo.h">
+      <Filter>Header Files\rest</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\rest\restcancelorder.h">
+      <Filter>Header Files\rest</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\rest\restcancelwithdrawcoin.h">
+      <Filter>Header Files\rest</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\rest\restgetloanavailable.h">
+      <Filter>Header Files\rest</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\rest\restgetloans.h">
+      <Filter>Header Files\rest</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\rest\restgetnewdealorders.h">
+      <Filter>Header Files\rest</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\rest\restgetorderidbytradeid.h">
+      <Filter>Header Files\rest</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\rest\restgetorders.h">
+      <Filter>Header Files\rest</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\rest\restgetwithdrawcoinresult.h">
+      <Filter>Header Files\rest</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\rest\restloan.h">
+      <Filter>Header Files\rest</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\rest\restorderinfo.h">
+      <Filter>Header Files\rest</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\rest\restrepayment.h">
+      <Filter>Header Files\rest</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\rest\restsell.h">
+      <Filter>Header Files\rest</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\rest\restsellmarket.h">
+      <Filter>Header Files\rest</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\rest\resttransfer.h">
+      <Filter>Header Files\rest</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\rest\restwithdrawcoin.h">
+      <Filter>Header Files\rest</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\rest\restbuy.h">
+      <Filter>Header Files\rest</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\rest\restbuymarket.h">
       <Filter>Header Files\rest</Filter>
     </CustomBuild>
   </ItemGroup>

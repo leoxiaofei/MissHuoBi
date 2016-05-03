@@ -1,4 +1,4 @@
-#include "rest\restgetaccountinfo.h"
+#include "rest\restgetloans.h"
 #include "common\mapkv.h"
 
 #include <QDebug>
@@ -6,7 +6,7 @@
 namespace HBAPI
 {
 
-	void RestGetAccountInfo::SendRequest(MarketType eMarketType)
+	void RestGetLoans::SendRequest(MarketType eMarketType)
 	{
 		MapKV mapParams;
 
@@ -22,7 +22,7 @@ namespace HBAPI
 		}
 	}
 
-	bool RestGetAccountInfo::ReceiveJson(const QJsonDocument& json)
+	bool RestGetLoans::ReceiveJson(const QJsonDocument& json)
 	{
 		qDebug() << json;
 

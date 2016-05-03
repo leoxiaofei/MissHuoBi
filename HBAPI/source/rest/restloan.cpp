@@ -1,4 +1,4 @@
-#include "rest\restgetaccountinfo.h"
+#include "rest\restloan.h"
 #include "common\mapkv.h"
 
 #include <QDebug>
@@ -6,9 +6,12 @@
 namespace HBAPI
 {
 
-	void RestGetAccountInfo::SendRequest(MarketType eMarketType)
+	void RestLoan::SendRequest(LoanType eLoanType, const double& dAmount,
+		MarketType eMarketType)
 	{
 		MapKV mapParams;
+		mapParams.insert(szRestKName[RK_LOAN_TYPE], eLoanType);
+		mapParams.insert(szRestKName[RK_AMOUNT], dAmount);
 
 		if (eMarketType != MT_CNY)
 		{
@@ -22,7 +25,7 @@ namespace HBAPI
 		}
 	}
 
-	bool RestGetAccountInfo::ReceiveJson(const QJsonDocument& json)
+	bool RestLoan::ReceiveJson(const QJsonDocument& json)
 	{
 		qDebug() << json;
 

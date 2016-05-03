@@ -1,13 +1,31 @@
 #include "hbrest.h"
-#include "rest\restrequestbase.h"
 #include "common\mapkv.h"
+#include "rest\restrequestbase.h"
+#include "rest\restgetaccountinfo.h"
+#include "rest\restgetorders.h"
+#include "rest\restorderinfo.h"
+#include "rest\restbuy.h"
+#include "rest\restsell.h"
+#include "rest\restbuymarket.h"
+#include "rest\restsellmarket.h"
+#include "rest\restcancelorder.h"
+#include "rest\restgetnewdealorders.h"
+#include "rest\restgetorderidbytradeid.h"
+#include "rest\restwithdrawcoin.h"
+#include "rest\restcancelwithdrawcoin.h"
+#include "rest\restgetwithdrawcoinresult.h"
+#include "rest\resttransfer.h"
+#include "rest\restloan.h"
+#include "rest\restrepayment.h"
+#include "rest\restgetloans.h"
+#include "rest\restgetloanavailable.h"
+
 
 #include <QDateTime>
 #include <QSharedPointer>
 #include <QCryptographicHash>
 #include <QJsonDocument>
 #include <QJsonObject>
-#include "rest\restgetaccountinfo.h"
 
 namespace HBAPI
 {
@@ -77,7 +95,7 @@ namespace HBAPI
 		if (RestRequestBase* pBase = m_pImpl->mapResponse.take(nRequestId))
 		{
 			QJsonDocument jd = QJsonDocument::fromJson(ba);
-			pBase->ReceiveJson(jd.object());
+			pBase->ReceiveJson(jd);
 
 		}
 	}
@@ -93,7 +111,24 @@ namespace HBAPI
 		m_pImpl->funcEmitRest = emitRest;
 
 		RegRequest<RestGetAccountInfo>();
-
+		RegRequest<RestGetOrders>();
+		RegRequest<RestOrderInfo>();
+		RegRequest<RestBuy>();
+		RegRequest<RestSell>();
+		RegRequest<RestBuyMarket>();
+		RegRequest<RestSellMarket>();
+		RegRequest<RestCancelOrder>();
+		RegRequest<RestGetNewDealOrders>();
+		RegRequest<RestGetOrderIdByTradeId>();
+		RegRequest<RestWithdrawCoin>();
+		RegRequest<RestCancelWithdrawCoin>();
+		RegRequest<RestGetWithdrawCoinResult>();
+		RegRequest<RestTransfer>();
+		RegRequest<RestLoan>();
+		RegRequest<RestRepayment>();
+		RegRequest<RestGetLoanAvailable>();
+		RegRequest<RestGetLoans>();
+		
 	}
 
 }

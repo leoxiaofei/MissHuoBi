@@ -133,6 +133,20 @@ namespace HBAPI
 		QLatin1String("sign"),
 		QLatin1String("secret_key"),
 		QLatin1String("market"),
+		QLatin1String("coin_type"),
+		QLatin1String("id"),
+		QLatin1String("price"),
+		QLatin1String("amount"),
+		QLatin1String("trade_id"),
+		QLatin1String("withdraw_address"),
+		QLatin1String("withdraw_amount"),
+		QLatin1String("withdraw_coin_id"),
+		QLatin1String("account_from"),
+		QLatin1String("account_to"),
+		QLatin1String("loan_type"),
+		QLatin1String("loan_id"),
+		QLatin1String("repay_all"),
+		
 	};
 
 
