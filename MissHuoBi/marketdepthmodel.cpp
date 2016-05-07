@@ -360,19 +360,19 @@ void MarketDepthModel::GetDisplayRole(const QModelIndex &index, QVariant& val) c
 		val = nRow < m_pImpl->listAskDepthData.size() ? "A" : "B";
 		break;
 	case MD_PRICE:
-		val = nRow < m_pImpl->listAskDepthData.size()
+		val = QString::number(nRow < m_pImpl->listAskDepthData.size()
 			? m_pImpl->listAskDepthData[nRow].dPrice
-			: m_pImpl->listBidDepthData[nRow - m_pImpl->listAskDepthData.size()].dPrice;
+			: m_pImpl->listBidDepthData[nRow - m_pImpl->listAskDepthData.size()].dPrice, 'f', 2);
 		break;
 	case MD_AMOUNT:
-		val = nRow < m_pImpl->listAskDepthData.size()
+		val = QString::number(nRow < m_pImpl->listAskDepthData.size()
 			? m_pImpl->listAskDepthData[nRow].dAmount
-			: m_pImpl->listBidDepthData[nRow - m_pImpl->listAskDepthData.size()].dAmount;
+			: m_pImpl->listBidDepthData[nRow - m_pImpl->listAskDepthData.size()].dAmount, 'f', 4);
 		break;
 	case MD_TOTAL:
-		val = nRow < m_pImpl->listAskDepthData.size()
+		val = QString::number(nRow < m_pImpl->listAskDepthData.size()
 			? m_pImpl->listAskDepthData[nRow].dTotal
-			: m_pImpl->listBidDepthData[nRow - m_pImpl->listAskDepthData.size()].dTotal;
+			: m_pImpl->listBidDepthData[nRow - m_pImpl->listAskDepthData.size()].dTotal, 'f', 4);
 		break;
 	default:
 		break;

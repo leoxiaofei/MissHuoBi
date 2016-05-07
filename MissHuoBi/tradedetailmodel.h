@@ -39,6 +39,8 @@ public:
 protected:
 	void GetDisplayRole(const QModelIndex &index, QVariant& val) const;
 
+	void LastTradeRadio();
+
 public slots:
 	void slot_AddTradeDetai(const QSharedPointer<HBAPI::TradeDetailBill>& ptTradeDetailBill);
 

@@ -6,6 +6,7 @@
 #include <QDateTime>
 #include <QVariant>
 #include <QDebug>
+#include <algorithm>
 
 namespace
 {
@@ -68,7 +69,7 @@ QVariant TradeDetailModel::headerData(int section, Qt::Orientation orientation, 
 
 void TradeDetailModel::GetDisplayRole(const QModelIndex &index, QVariant& val) const
 {
-	int nRow = index.row();
+	int nRow = m_pImpl->queTDData.size() - index.row() - 1;
 	HBAPI::TradeDetailData* tDData = m_pImpl->queTDData[nRow];
 
 	switch (index.column())
@@ -80,20 +81,13 @@ void TradeDetailModel::GetDisplayRole(const QModelIndex &index, QVariant& val) c
 		val = QDateTime::fromTime_t(tDData->tTime).toString("yyyy-MM-dd hh:mm:ss");
 		break;
 	case TD_PRICE:
-		val = tDData->dPrice;
+		val = QString::number(tDData->dPrice, 'f', 2);
 		break;
 	case TD_AMOUNT:
-		val = tDData->dAmount;
+		val = QString::number(tDData->dAmount, 'f', 4);
 		break;
 	case TD_DIRECTION:
-		if (tDData->eDirection < 3)
-		{
-			val = HBAPI::TrDirectionType(tDData->eDirection);
-		}
-		else
-		{
-			qDebug() << tDData->eDirection;
-		}
+		val = HBAPI::TrDirectionType(tDData->eDirection);
 		break;
 	default:
 		break;
@@ -122,11 +116,11 @@ void TradeDetailModel::slot_AddTradeDetai(const QSharedPointer<HBAPI::TradeDetai
 		//beginInsertRows(QModelIndex(), nFirst, nFirst + ptTradeDetailBill->vecTradeDetailData.size() - 1);
 		beginInsertRows(QModelIndex(), nFirst, nFirst + ptTradeDetailBill->vecTradeDetailData.size() - 1);
 
-		for (QVector<HBAPI::TradeDetailData*>::const_reverse_iterator itor
-			= ptTradeDetailBill->vecTradeDetailData.crbegin();
-			itor != ptTradeDetailBill->vecTradeDetailData.crend(); ++itor)
+		for (QVector<HBAPI::TradeDetailData*>::const_iterator itor
+			= ptTradeDetailBill->vecTradeDetailData.cbegin();
+			itor != ptTradeDetailBill->vecTradeDetailData.cend(); ++itor)
 		{
-			m_pImpl->queTDData.prepend(*itor);
+			m_pImpl->queTDData.append(*itor);
 		}
 
 		endInsertRows();
@@ -140,13 +134,15 @@ void TradeDetailModel::slot_AddTradeDetai(const QSharedPointer<HBAPI::TradeDetai
 
 			while (nRemove)
 			{
-				ptTradeDetailBill->vecTradeDetailData.append(m_pImpl->queTDData.takeLast());
+				ptTradeDetailBill->vecTradeDetailData.append(m_pImpl->queTDData.takeFirst());
 				--nRemove;
 			}
 
 			endRemoveRows();
 		}
 	}
+
+	LastTradeRadio();
 }
 
 void TradeDetailModel::RetranslateUi()
@@ -159,4 +155,58 @@ void TradeDetailModel::RetranslateUi()
 	}
 
 	emit headerDataChanged(Qt::Horizontal, 0, m_pImpl->listHeader.size() - 1);
+}
+
+class LastLessThan
+{
+public:
+
+	inline bool operator()(HBAPI::TradeDetailData*p, const time_t& t) const
+	{
+		return p->tTime < t;
+	}
+
+	inline bool operator()(const time_t& t, HBAPI::TradeDetailData* p) const
+	{
+		return t < p->tTime;
+	}
+
+};
+
+void TradeDetailModel::LastTradeRadio()
+{
+	QList<HBAPI::TradeDetailData*>::const_iterator cFind = 
+		std::lower_bound(m_pImpl->queTDData.constBegin(), m_pImpl->queTDData.constEnd(),
+		QDateTime::currentDateTime().addSecs(-5).toTime_t(), LastLessThan());
+	
+// 	qDebug() << m_pImpl->queTDData.constEnd() - cFind <<":"<< QDateTime::fromTime_t((*cFind)->tTime).toString("hh:mm:ss") 
+// 		<< " " << QDateTime::currentDateTime().secsTo(QDateTime::fromTime_t((*cFind)->tTime));
+
+	double dA[2] = { 0 };
+	double dS[2] = { 0 };
+
+	for (QList<HBAPI::TradeDetailData*>::const_iterator citor = cFind;
+		citor != m_pImpl->queTDData.constEnd(); ++citor)
+	{
+		HBAPI::TradeDetailData* pTrade = *citor;
+		switch (pTrade->eDirection)
+		{
+		case HBAPI::DT_BUYING:
+		case HBAPI::DT_BUYING2:
+			dA[0] += pTrade->dAmount;
+			++dS[0];
+			break;
+		case HBAPI::DT_SELLING:
+		case HBAPI::DT_SELLIN2:
+			dA[1] += pTrade->dAmount;
+			++dS[1];
+			break;
+		default:
+			break;
+		}
+	}
+
+// 	qDebug() << "BUYING: " << dA[0] << ":" << dS[0] << "SELLING: " << dA[1] << ":" << dS[1];
+	double dSpan = dA[0] - dA[1];
+	qDebug() << dSpan << " " << dS[0] << ":" << dS[1];
 }

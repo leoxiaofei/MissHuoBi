@@ -9,6 +9,8 @@ namespace HBAPI
 		"",
 		QT_TRANSLATE_NOOP("HBAPI", "BUYING"),
 		QT_TRANSLATE_NOOP("HBAPI", "SELLING"),
+		QT_TRANSLATE_NOOP("HBAPI", "BUYING1"),
+		QT_TRANSLATE_NOOP("HBAPI", "SELLING2"),
 	};
 
 	QString TrDirectionType(DirectionType eType)

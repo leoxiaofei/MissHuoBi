@@ -36,4 +36,12 @@ void MarketBoard::Init(MarketDepthModel* pMarketDepthModel)
 	pBidModel->setFilterKeyColumn(MarketDepthModel::MD_D);
 	ui.tvBid->setModel(pBidModel);
 	ui.tvBid->hideColumn(MarketDepthModel::MD_D);
+
+	ui.tvAsk->horizontalHeader()->setSectionResizeMode(MarketDepthModel::MD_PRICE, QHeaderView::Stretch);
+	ui.tvAsk->horizontalHeader()->setSectionResizeMode(MarketDepthModel::MD_AMOUNT, QHeaderView::Stretch);
+	ui.tvAsk->horizontalHeader()->setSectionResizeMode(MarketDepthModel::MD_TOTAL, QHeaderView::Stretch);
+
+	ui.tvBid->horizontalHeader()->setSectionResizeMode(MarketDepthModel::MD_PRICE, QHeaderView::Stretch);
+	ui.tvBid->horizontalHeader()->setSectionResizeMode(MarketDepthModel::MD_AMOUNT, QHeaderView::Stretch);
+	ui.tvBid->horizontalHeader()->setSectionResizeMode(MarketDepthModel::MD_TOTAL, QHeaderView::Stretch);
 }

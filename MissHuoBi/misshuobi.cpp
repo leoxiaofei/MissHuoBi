@@ -7,6 +7,7 @@
 #include <functional>
 #include <QTimer>
 #include <QSortFilterProxyModel>
+#include <QHeaderView>
 
 #include "common\marketdepthdata.h"
 #include "common\marketdepthtopdata.h"
@@ -83,7 +84,10 @@ void MissHuoBi::Init()
 
 	ui.tvTradeLog->setModel(pTradeModel);
 	ui.tvTradeLog->hideColumn(TradeDetailModel::TD_TRADEID);
-	ui.tvTradeLog->hideColumn(TradeDetailModel::TD_TIME);
+	//ui.tvTradeLog->hideColumn(TradeDetailModel::TD_TIME);
+	ui.tvTradeLog->horizontalHeader()->setSectionResizeMode(TradeDetailModel::TD_PRICE, QHeaderView::Stretch);
+	ui.tvTradeLog->horizontalHeader()->setSectionResizeMode(TradeDetailModel::TD_AMOUNT, QHeaderView::Stretch);
+	ui.tvTradeLog->horizontalHeader()->setSectionResizeMode(TradeDetailModel::TD_DIRECTION, QHeaderView::Stretch);
 
 	m_pImpl->pMDM = new MarketDepthModel(this);
 	QObject::connect(m_pImpl->pMDM, &MarketDepthModel::signal_ReloadMarketDepth, 
@@ -131,7 +135,7 @@ void MissHuoBi::Init()
 
 	QTimer::singleShot(500, this, &MissHuoBi::on_actionConnect_triggered);
 
-
+	ui.dockLog->hide();
 }
 
 void MissHuoBi::closeEvent(QCloseEvent * ev)

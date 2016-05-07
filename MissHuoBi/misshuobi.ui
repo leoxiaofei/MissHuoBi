@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>794</width>
-    <height>621</height>
+    <width>1066</width>
+    <height>788</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,8 +19,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>794</width>
-     <height>21</height>
+     <width>1066</width>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuCtrl">
@@ -94,12 +94,12 @@
     </layout>
    </widget>
   </widget>
-  <widget class="QDockWidget" name="dockWidget">
+  <widget class="QDockWidget" name="dockLog">
    <attribute name="dockWidgetArea">
     <number>8</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetContents">
-    <layout class="QVBoxLayout" name="verticalLayout_2">
+   <widget class="QWidget" name="dwcLog">
+    <layout class="QVBoxLayout" name="vlLog">
      <property name="leftMargin">
       <number>0</number>
      </property>
