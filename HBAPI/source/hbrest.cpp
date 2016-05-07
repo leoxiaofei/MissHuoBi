@@ -106,7 +106,7 @@ namespace HBAPI
 		m_pImpl->strSecretKey = strSecretKey;
 	}
 
-	void HbRest::InitParser(const FuncEmitRest& emitRest)
+	void HbRest::SetSendFunc(const FuncEmitRest& emitRest)
 	{
 		m_pImpl->funcEmitRest = emitRest;
 

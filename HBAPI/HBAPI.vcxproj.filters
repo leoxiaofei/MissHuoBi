@@ -418,6 +418,15 @@
     <ClCompile Include="source\rest\restgetnewdealorders.cpp">
       <Filter>Source Files\rest</Filter>
     </ClCompile>
+    <ClCompile Include="source\hbmarketlinker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_hbmarketlinker.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_hbmarketlinker.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="include\msg\msgmarketoverview.h">
@@ -497,6 +506,9 @@
     </CustomBuild>
     <CustomBuild Include="include\rest\restbuymarket.h">
       <Filter>Header Files\rest</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\hbmarketlinker.h">
+      <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
 </Project>

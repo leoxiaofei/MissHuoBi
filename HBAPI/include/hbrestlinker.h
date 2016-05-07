@@ -19,7 +19,7 @@ public:
 	HbRestLinker(QObject* parent = 0);
 	~HbRestLinker();
 
-	void SetFuncRecvRest(const FuncRecvRest& funcRecvRest);
+	void SetRecvFunc(const FuncRecvRest& funcRecvRest);
 
 	void SetUrl(const QUrl& url);
 

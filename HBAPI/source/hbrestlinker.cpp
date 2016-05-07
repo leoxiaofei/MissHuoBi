@@ -59,7 +59,7 @@ namespace HBAPI
 		m_pImpl->funcRecvRest(reinterpret_cast<long>(reply), reply->readAll());
 	}
 
-	void HbRestLinker::SetFuncRecvRest(const FuncRecvRest& funcRecvRest)
+	void HbRestLinker::SetRecvFunc(const FuncRecvRest& funcRecvRest)
 	{
 		m_pImpl->funcRecvRest = funcRecvRest;
 	}

@@ -33,7 +33,7 @@ namespace HBAPI
 			return p;
 		}
 
-		void InitParser(const FuncEmitRest& emitRest);
+		void SetSendFunc(const FuncEmitRest& emitRest);
 
 		void ParserRequest(long nRequestId, const QByteArray& ba);
 

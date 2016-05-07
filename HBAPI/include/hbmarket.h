@@ -7,11 +7,10 @@
 #include <QScopedPointer>
 #include <functional>
 
-
-typedef std::function<void(const QString &, const QVariantMap &)> FuncEmitMessage;
-
 namespace HBAPI
 {
+	typedef std::function<void(const QString &, const QVariantMap &)> FuncEmitMarket;
+
 	class RequestBase;
 	class SubscribeBase;
 
@@ -21,7 +20,7 @@ namespace HBAPI
 		HbMarket(QObject* parent);
 		~HbMarket();
 
-		void InitParser(const FuncEmitMessage& emitMessage);
+		void SetSendFunc(const FuncEmitMarket& emitMessage);
 
 		template<class T>
 		T* QueryRequest() const

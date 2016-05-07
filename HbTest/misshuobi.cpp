@@ -33,8 +33,7 @@ MissHuoBi::MissHuoBi(QWidget *parent)
 	m_pImpl->pIO->setObjectName("sioClient");
 
 	m_pImpl->pRP = new HbMarket(this);
-
-	m_pImpl->pRP->InitParser(std::bind((FEM)&QSocketIoClient::emitMessage, m_pImpl->pIO, std::placeholders::_1, std::placeholders::_2));
+	m_pImpl->pRP->SetSendFunc(std::bind((FEM)&QSocketIoClient::emitMessage, m_pImpl->pIO, std::placeholders::_1, std::placeholders::_2));
 
 	m_pImpl->pIO->on("request", (Fp)std::bind(&HbMarket::ParserRequest, m_pImpl->pRP, std::placeholders::_1));
 	m_pImpl->pIO->on("message", (Fp)std::bind(&HbMarket::ParserMessage, m_pImpl->pRP, std::placeholders::_1));

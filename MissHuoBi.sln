@@ -15,6 +15,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HbTest", "HbTest\HbTest.vcx
 		{BE9D8E9F-262E-4254-B4FD-9AAB7224C4A4} = {BE9D8E9F-262E-4254-B4FD-9AAB7224C4A4}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MsHbConfig", "MsHbConfig\MsHbConfig.vcxproj", "{78594AA9-FFAF-4F57-BDD9-CD87E8EF7D4F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -33,6 +35,10 @@ Global
 		{B40CD6F3-7BE9-44AF-9C2A-B24CB9B07909}.Debug|Win32.Build.0 = Debug|Win32
 		{B40CD6F3-7BE9-44AF-9C2A-B24CB9B07909}.Release|Win32.ActiveCfg = Release|Win32
 		{B40CD6F3-7BE9-44AF-9C2A-B24CB9B07909}.Release|Win32.Build.0 = Release|Win32
+		{78594AA9-FFAF-4F57-BDD9-CD87E8EF7D4F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{78594AA9-FFAF-4F57-BDD9-CD87E8EF7D4F}.Debug|Win32.Build.0 = Debug|Win32
+		{78594AA9-FFAF-4F57-BDD9-CD87E8EF7D4F}.Release|Win32.ActiveCfg = Release|Win32
+		{78594AA9-FFAF-4F57-BDD9-CD87E8EF7D4F}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

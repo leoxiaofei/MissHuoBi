@@ -30,7 +30,7 @@ namespace HBAPI
 class HbMarket::Impl
 {
 public:
-	FuncEmitMessage emitMessage;
+	FuncEmitMarket emitMessage;
 
 	IdCreater<int> icRequestIndex;
 
@@ -51,12 +51,9 @@ HbMarket::~HbMarket()
 
 }
 
-void HbMarket::InitParser(const FuncEmitMessage& emitMessage)
+void HbMarket::SetSendFunc(const FuncEmitMarket& emitMessage)
 {
 	m_pImpl->emitMessage = emitMessage;
-
-// 
-// 	m_pImpl->pIO = pIO;
 
 	//////////////////////////////////////////////////////////////////////////
 
