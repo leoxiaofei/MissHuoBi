@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MsHbConfigClass</class>
+ <widget class="QDialog" name="MsHbConfigClass">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>368</width>
+    <height>195</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MsHbConfig</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QGroupBox" name="gboxConfig">
+     <property name="title">
+      <string>Config</string>
+     </property>
+     <layout class="QFormLayout" name="formLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="lblWebSocketUrl">
+        <property name="text">
+         <string>WebSocket Url:</string>
+        </property>
+        <property name="buddy">
+         <cstring>edtWebSocketUrl</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="edtWebSocketUrl"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="lblRestUrl">
+        <property name="text">
+         <string>Rest Url:</string>
+        </property>
+        <property name="buddy">
+         <cstring>edtRestUrl</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="edtRestUrl"/>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="lblAccessKey">
+        <property name="text">
+         <string>Access Key:</string>
+        </property>
+        <property name="buddy">
+         <cstring>edtAccessKey</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="edtAccessKey"/>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="lblSecretKey">
+        <property name="text">
+         <string>Secret Key:</string>
+        </property>
+        <property name="buddy">
+         <cstring>edtSecretKey</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QLineEdit" name="edtSecretKey"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="bbox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="mshbconfig.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>bbox</sender>
+   <signal>accepted()</signal>
+   <receiver>MsHbConfigClass</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>210</x>
+     <y>201</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>5</x>
+     <y>180</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bbox</sender>
+   <signal>rejected()</signal>
+   <receiver>MsHbConfigClass</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>240</x>
+     <y>202</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>298</x>
+     <y>182</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

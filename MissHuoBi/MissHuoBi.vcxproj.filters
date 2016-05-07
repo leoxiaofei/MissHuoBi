@@ -86,6 +86,9 @@
     <ClCompile Include="GeneratedFiles\Release\moc_marketdepthmodel.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="mscfgfile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="misshuobi.h">
@@ -125,6 +128,9 @@
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_marketboard.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mscfgfile.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

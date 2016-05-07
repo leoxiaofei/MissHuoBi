@@ -1,66 +1,146 @@
 ﻿#include "misshuobi.h"
 
-#include <QWebSocket>
 #include <QDebug>
 #include <QUrl>
 #include <QVariant>
 #include <QJsonObject>
 #include <functional>
-#include <QSocketIoClient>
 #include <QTimer>
+#include <QSortFilterProxyModel>
 
-#include "panelboard.h"
-#include "hbparser.h"
-#include "req\reqmsgsubscribe.h"
+#include "common\marketdepthdata.h"
+#include "common\marketdepthtopdata.h"
 #include "common\misshbdef.h"
+#include "hbmarket.h"
+#include "hbmarketlinker.h"
+#include "hbrest.h"
+#include "hbrestlinker.h"
+#include "marketdepthmodel.h"
+#include "msg\msgmarketdepthdiff.h"
+#include "msg\msgmarketdepthtopdiff.h"
 #include "msg\msgmarketoverview.h"
+#include "msg\msgtradedetail.h"
+#include "panelboard.h"
+#include "req\reqmarketdepth.h"
+#include "req\reqmarketdepthtop.h"
+#include "req\reqmsgsubscribe.h"
+#include "rest\restgetaccountinfo.h"
+#include "rest\restgetnewdealorders.h"
+#include "rest\restgetorders.h"
+#include "tradedetailmodel.h"
+#include "mscfgfile.h"
 
 using namespace HBAPI;
 
 class MissHuoBi::Impl
 {
 public:
-	QSocketIoClient* pIO;
-	HbParser*   pRP;
+	HbMarket*			pM;
+	HbMarketLinker*		pML;
+
+	HbRest*				pR;
+	HbRestLinker*		pRL;
+
+	MarketDepthModel*	pMDM;
+
 };
 
-typedef void (QSocketIoClient::*Fem)(const QString &, const QVariantMap &);
-typedef std::function<void(const QJsonArray&)> Fp;
 
 MissHuoBi::MissHuoBi(QWidget *parent)
 	: QMainWindow(parent)
 	, m_pImpl(new Impl)
 {
-	m_pImpl->pIO = new QSocketIoClient(this);
-	m_pImpl->pIO->setObjectName("sioClient");
 	ui.setupUi(this);
 	Init();
 }
 
 void MissHuoBi::Init()
 {
-	m_pImpl->pRP = new HbParser(this);
-	m_pImpl->pRP->InitParser(std::bind((Fem)&QSocketIoClient::emitMessage, m_pImpl->pIO, std::placeholders::_1, std::placeholders::_2));
+	MsCfgFile msCfg;
+	msCfg.LoadFile("MsCfg.hb");
 
-	m_pImpl->pIO->on("request", (Fp)std::bind(&HbParser::ParserRequest, m_pImpl->pRP, std::placeholders::_1));
-	m_pImpl->pIO->on("message", (Fp)std::bind(&HbParser::ParserMessage, m_pImpl->pRP, std::placeholders::_1));
+	m_pImpl->pR = new HbRest(this);
+	m_pImpl->pRL = new HbRestLinker(this);
+	m_pImpl->pR->SetSendFunc(std::bind(&HbRestLinker::PostData, m_pImpl->pRL, std::placeholders::_1));
+	m_pImpl->pRL->SetRecvFunc(std::bind(&HbRest::ParserRequest, m_pImpl->pR, std::placeholders::_1, std::placeholders::_2));
+
+	m_pImpl->pR->SetKey(msCfg.strAccessKey, msCfg.strSecretKey);
+	m_pImpl->pRL->SetUrl(QUrl(msCfg.strRestUrl));
+
+	m_pImpl->pM = new HbMarket(this);
+	m_pImpl->pML = new HbMarketLinker(this);
+	m_pImpl->pM->SetSendFunc(m_pImpl->pML->GetSendFunc());
+	m_pImpl->pML->SetRecvFunc(std::bind(&HbMarket::ParserRequest, m_pImpl->pM, std::placeholders::_1),
+		std::bind(&HbMarket::ParserMessage, m_pImpl->pM, std::placeholders::_1));
+
+	m_pImpl->pML->SetUrl(QUrl(msCfg.strWebSocketUrl));
+
+	QObject::connect(m_pImpl->pML, &HbMarketLinker::signal_Connected, this,
+		&MissHuoBi::slot_Subscribe);
+	//////////////////////////////////////////////////////////////////////////
+
+	TradeDetailModel* pTradeModel = new TradeDetailModel(ui.tvTradeLog);
+
+	ui.tvTradeLog->setModel(pTradeModel);
+	ui.tvTradeLog->hideColumn(TradeDetailModel::TD_TRADEID);
+	ui.tvTradeLog->hideColumn(TradeDetailModel::TD_TIME);
+
+	m_pImpl->pMDM = new MarketDepthModel(this);
+	QObject::connect(m_pImpl->pMDM, &MarketDepthModel::signal_ReloadMarketDepth, 
+		this, &MissHuoBi::slot_ReloadMarketDepth);
+	QObject::connect(m_pImpl->pMDM, &MarketDepthModel::signal_ReloadMarketDepthTop,
+		this, &MissHuoBi::slot_ReloadMarketDepthTop);
 
 	MsgMarketOverview* pMsgMarketDetail =
-		m_pImpl->pRP->QueryMessage<MsgMarketOverview>();
+		m_pImpl->pM->QueryMessage<MsgMarketOverview>();
 
-	QObject::connect(pMsgMarketDetail, &MsgMarketOverview::signal_Receive, ui.wgPanelBoard, &PanelBoard::slot_UpadePanel);
+	QObject::connect(pMsgMarketDetail, &MsgMarketOverview::signal_Receive,
+		ui.wgPanelBoard, &PanelBoard::slot_UpadePanel);
 
-	QTimer::singleShot(1000, this, &MissHuoBi::on_actionConnect_triggered);
+	MsgMarketDepthDiff* pMsgMarketDepthDiff =
+		m_pImpl->pM->QueryMessage<MsgMarketDepthDiff>();
+
+	QObject::connect(pMsgMarketDepthDiff, &MsgMarketDepthDiff::signal_Receive,
+		m_pImpl->pMDM, &MarketDepthModel::slot_ReciMarketDepthDiffData);
+
+	ReqMarketDepth* pReqMarketDepth =
+		m_pImpl->pM->QueryRequest<ReqMarketDepth>();
+
+	QObject::connect(pReqMarketDepth, &ReqMarketDepth::signal_Receive,
+		m_pImpl->pMDM, &MarketDepthModel::slot_ReciMarketDepthData);
+
+	MsgMarketDepthTopDiff* pMsgMarketDepthTopDiff =
+		m_pImpl->pM->QueryMessage<MsgMarketDepthTopDiff>();
+
+	QObject::connect(pMsgMarketDepthTopDiff, &MsgMarketDepthTopDiff::signal_Receive,
+		m_pImpl->pMDM, &MarketDepthModel::slot_ReciMarketDepthTopDiffData);
+
+	ReqMarketDepthTop* pReqMarketDepthTop =
+		m_pImpl->pM->QueryRequest<ReqMarketDepthTop>();
+
+	QObject::connect(pReqMarketDepthTop, &ReqMarketDepthTop::signal_Receive,
+		m_pImpl->pMDM, &MarketDepthModel::slot_ReciMarketDepthTopData);
+
+	
+ 	MsgTradeDetail* pMsgTradeDetail = m_pImpl->pM->QueryMessage<MsgTradeDetail>();
+
+	QObject::connect(pMsgTradeDetail, &MsgTradeDetail::signal_Receive,
+		pTradeModel, &TradeDetailModel::slot_AddTradeDetai);
+	
+	ui.wgMarketBoard->Init(m_pImpl->pMDM);
+
+	QTimer::singleShot(500, this, &MissHuoBi::on_actionConnect_triggered);
+
+
 }
 
-void MissHuoBi::Subscribe()
+void MissHuoBi::closeEvent(QCloseEvent * ev)
 {
-	ReqMsgSubscribe* pReqMsgSubscribe =
-		m_pImpl->pRP->QueryRequest<ReqMsgSubscribe>();
-
-	///订阅盘口信息
-	pReqMsgSubscribe->SendRequest(QVector<Subscriber>()
-		<< MsgMarketOverview::GetSubscriber(SIT_BTCCNY, PT_PUSHSHORT));
+	QEventLoop loop;
+	QObject::connect(m_pImpl->pML, &HbMarketLinker::signal_Disconnected, &loop, &QEventLoop::quit);
+	QTimer::singleShot(2000, &loop, &QEventLoop::quit);
+	on_actionDisconnect_triggered();
+	loop.exec(QEventLoop::ExcludeUserInputEvents);
 }
 
 MissHuoBi::~MissHuoBi()
@@ -71,46 +151,70 @@ MissHuoBi::~MissHuoBi()
 void MissHuoBi::on_actionConnect_triggered()
 {
 	qDebug() << "on_actionConnect_triggered";
-
-	QString strUrl = "ws://hq.huobi.com:80";
-	m_pImpl->pIO->open(QUrl(strUrl));
-
+	m_pImpl->pML->Connect();
 }
 
 void MissHuoBi::on_actionDisconnect_triggered()
 {
 	qDebug() << "on_actionDisconnect_triggered";
-	m_pImpl->pIO->close();
+	m_pImpl->pML->Disconnect();
 }
 
 void MissHuoBi::on_actionRequest_triggered()
 {
+// 	RestGetAccountInfo* pRestGetAccountInfo =
+// 		m_pImpl->pR->QueryRequest<RestGetAccountInfo>();
+// 	if (pRestGetAccountInfo)
+// 	{
+// 		pRestGetAccountInfo->SendRequest();
+// 	}
 
+	RestGetOrders* pRestGetOrders =
+			m_pImpl->pR->QueryRequest<RestGetOrders>();
+	if (pRestGetOrders)
+	{
+		pRestGetOrders->SendRequest(CT_BTC);
+	}
+
+// 	RestGetNewDealOrders* pRestGetNewDealOrders =
+// 		m_pImpl->pR->QueryRequest<RestGetNewDealOrders>();
+// 	if (pRestGetNewDealOrders)
+// 	{
+// 		pRestGetNewDealOrders->SendRequest(CT_BTC);
+// 	}
 }
 
-void MissHuoBi::on_sioClient_heartbeatReceived()
+void MissHuoBi::slot_ReloadMarketDepth()
 {
-	qDebug() << "Received heartbeat";
+	ReqMarketDepth* pReqMarketDepth =
+		m_pImpl->pM->QueryRequest<ReqMarketDepth>();
+
+	///订阅盘口信息
+	pReqMarketDepth->SendRequest(SIT_BTCCNY, HBAPI::PT_PERCENT100);
 }
 
-void MissHuoBi::on_sioClient_messageReceived(const QString& message)
+void MissHuoBi::slot_ReloadMarketDepthTop()
 {
-	qDebug() << "on_sioClient_messageReceived:" << message;
+	ReqMarketDepthTop* pReqMarketDepth =
+		m_pImpl->pM->QueryRequest<ReqMarketDepthTop>();
+
+	///订阅盘口信息
+	pReqMarketDepth->SendRequest(SIT_BTCCNY);
 }
 
-void MissHuoBi::on_sioClient_errorReceived(const QString& reason, const QString& advice)
+void MissHuoBi::slot_Subscribe()
 {
-	qDebug() << "on_sioClient_errorReceived:" << reason << advice;
-}
+	ReqMsgSubscribe* pReqMsgSubscribe =
+		m_pImpl->pM->QueryRequest<ReqMsgSubscribe>();
 
-void MissHuoBi::on_sioClient_connected(const QString& endpoint)
-{
-	qDebug() << "on_sioClient_connected:" << endpoint;
-	Subscribe();
-}
+	MsgTradeDetail* pMsgTradeDetail =
+		m_pImpl->pM->QueryMessage<MsgTradeDetail>();
 
-void MissHuoBi::on_sioClient_disconnected(const QString& endpoint)
-{
-	qDebug() << "on_sioClient_disconnected:" << endpoint;
+	///订阅盘口信息
+	pReqMsgSubscribe->SendRequest(QVector<Subscriber>()
+		<< MsgTradeDetail::GetSubscriber(SIT_BTCCNY, PT_PUSHLONG)
+		<< MsgMarketDepthTopDiff::GetSubscriber(SIT_BTCCNY, PT_PUSHLONG)
+		<< MsgMarketOverview::GetSubscriber(SIT_BTCCNY, PT_PUSHLONG)
+		);
 }
 

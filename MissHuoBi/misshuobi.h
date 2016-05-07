@@ -21,15 +21,11 @@ public Q_SLOTS:
 	void slot_ReloadMarketDepthTop();
 
 protected Q_SLOTS:
-	void on_sioClient_heartbeatReceived();
-	void on_sioClient_messageReceived(const QString& message);
-	void on_sioClient_errorReceived(const QString& reason, const QString& advice);
-	void on_sioClient_connected(const QString& endpoint);
-	void on_sioClient_disconnected(const QString& endpoint);
+	void slot_Subscribe();
+
 
 protected:
 	void Init();
-	void Subscribe();
 
 	virtual void closeEvent(QCloseEvent * ev) override;
 
