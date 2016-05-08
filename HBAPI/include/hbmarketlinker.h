@@ -23,7 +23,7 @@ namespace HBAPI
 		void Connect();
 		void Disconnect();
 
-
+		bool IsConnected() const;
 		FuncEmitMarket GetSendFunc() const;
 
 	signals:

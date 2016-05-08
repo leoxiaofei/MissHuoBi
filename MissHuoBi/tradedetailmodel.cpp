@@ -1,12 +1,15 @@
 #include "tradedetailmodel.h"
 #include "msg\msgtradedetail.h"
 #include "common\misshbtext.h"
+#include "stattradedata.h"
+#include "tools\mspool.hpp"
 
 #include <QQueue>
 #include <QDateTime>
 #include <QVariant>
 #include <QDebug>
 #include <algorithm>
+
 
 namespace
 {
@@ -20,6 +23,8 @@ namespace
 
 }
 
+typedef MsPool<class Tag, StatTradeData> MPSTD;
+
 class TradeDetailModel::Impl
 {
 public:
@@ -32,7 +37,7 @@ TradeDetailModel::TradeDetailModel(QObject* parent /*= 0*/)
 : QAbstractTableModel(parent)
 , m_pImpl(new Impl)
 {
-	m_pImpl->nMaxCount = 3000;
+	m_pImpl->nMaxCount = 5000;
 	RetranslateUi();
 }
 
@@ -112,8 +117,8 @@ void TradeDetailModel::slot_AddTradeDetai(const QSharedPointer<HBAPI::TradeDetai
 {
 	if (!ptTradeDetailBill->vecTradeDetailData.isEmpty())
 	{
+		StatTrade(ptTradeDetailBill->vecTradeDetailData);
 		int nFirst = 0;
-		//beginInsertRows(QModelIndex(), nFirst, nFirst + ptTradeDetailBill->vecTradeDetailData.size() - 1);
 		beginInsertRows(QModelIndex(), nFirst, nFirst + ptTradeDetailBill->vecTradeDetailData.size() - 1);
 
 		for (QVector<HBAPI::TradeDetailData*>::const_iterator itor
@@ -141,8 +146,6 @@ void TradeDetailModel::slot_AddTradeDetai(const QSharedPointer<HBAPI::TradeDetai
 			endRemoveRows();
 		}
 	}
-
-	LastTradeRadio();
 }
 
 void TradeDetailModel::RetranslateUi()
@@ -155,6 +158,41 @@ void TradeDetailModel::RetranslateUi()
 	}
 
 	emit headerDataChanged(Qt::Horizontal, 0, m_pImpl->listHeader.size() - 1);
+}
+
+void TradeDetailModel::StatTrade(const QVector<HBAPI::TradeDetailData*>& vecTrade)
+{
+	StatTradeData* pData = MPSTD::New();
+	pData->Clear();
+
+	for (QVector<HBAPI::TradeDetailData*>::const_iterator citor = vecTrade.cbegin();
+		citor != vecTrade.cend(); ++citor)
+	{
+		HBAPI::TradeDetailData* pTrade = *citor;
+		switch (pTrade->eDirection)
+		{
+		case HBAPI::DT_BUYING:
+		case HBAPI::DT_BUYING2:
+			pData->dBuyingAmount += pTrade->dAmount;
+			++pData->dBuyingCount;
+			break;
+		case HBAPI::DT_SELLING:
+		case HBAPI::DT_SELLIN2:
+			pData->dSellingAmount += pTrade->dAmount;
+			++pData->dSellingCount;
+			break;
+		default:
+			break;
+		}
+
+		pData->dAvePrice += pTrade->dPrice;
+		pData->dMaxPrice = qMax(pData->dMaxPrice, pTrade->dPrice);
+		pData->dMinPrice = qMin(pData->dMinPrice, pTrade->dPrice);
+	}
+
+	pData->dAvePrice = pData->dAvePrice / vecTrade.size();
+
+	emit signal_StatTradeData(QSharedPointer<StatTradeData>(pData, &MPSTD::Free));
 }
 
 class LastLessThan
@@ -176,14 +214,15 @@ public:
 void TradeDetailModel::LastTradeRadio()
 {
 	QList<HBAPI::TradeDetailData*>::const_iterator cFind = 
-		std::lower_bound(m_pImpl->queTDData.constBegin(), m_pImpl->queTDData.constEnd(),
-		QDateTime::currentDateTime().addSecs(-5).toTime_t(), LastLessThan());
+		std::upper_bound(m_pImpl->queTDData.constBegin(), m_pImpl->queTDData.constEnd(),
+		QDateTime::currentDateTime().addSecs(-1).toTime_t(), LastLessThan());
 	
 // 	qDebug() << m_pImpl->queTDData.constEnd() - cFind <<":"<< QDateTime::fromTime_t((*cFind)->tTime).toString("hh:mm:ss") 
 // 		<< " " << QDateTime::currentDateTime().secsTo(QDateTime::fromTime_t((*cFind)->tTime));
 
 	double dA[2] = { 0 };
 	double dS[2] = { 0 };
+	double dP = 0;
 
 	for (QList<HBAPI::TradeDetailData*>::const_iterator citor = cFind;
 		citor != m_pImpl->queTDData.constEnd(); ++citor)
@@ -204,9 +243,12 @@ void TradeDetailModel::LastTradeRadio()
 		default:
 			break;
 		}
+
+		dP += pTrade->dPrice;
 	}
 
 // 	qDebug() << "BUYING: " << dA[0] << ":" << dS[0] << "SELLING: " << dA[1] << ":" << dS[1];
 	double dSpan = dA[0] - dA[1];
-	qDebug() << dSpan << " " << dS[0] << ":" << dS[1];
+	qDebug() << m_pImpl->queTDData.constEnd() - cFind;
+	qDebug() << dSpan << " " << dS[0] << ":" << dS[1] << " " << dP / (m_pImpl->queTDData.constEnd() - cFind);
 }

@@ -7,7 +7,10 @@
 namespace HBAPI
 {
 	class TradeDetailBill;
+	class TradeDetailData;
 }
+
+class StatTradeData;
 
 class TradeDetailModel : public QAbstractTableModel
 {
@@ -39,11 +42,14 @@ public:
 protected:
 	void GetDisplayRole(const QModelIndex &index, QVariant& val) const;
 
+	void StatTrade(const QVector<HBAPI::TradeDetailData*>& vecTrade);
 	void LastTradeRadio();
 
 public slots:
 	void slot_AddTradeDetai(const QSharedPointer<HBAPI::TradeDetailBill>& ptTradeDetailBill);
 
+signals:
+	void signal_StatTradeData(const QSharedPointer<StatTradeData>& ptStatTradeData);
 
 private:
 	class Impl;

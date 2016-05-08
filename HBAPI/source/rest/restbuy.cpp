@@ -2,6 +2,9 @@
 #include "common\mapkv.h"
 
 #include <QDebug>
+#include <QFile>
+#include <QTextStream>
+#include <QJsonDocument>
 
 namespace HBAPI
 {
@@ -30,6 +33,11 @@ namespace HBAPI
 	bool RestBuy::ReceiveJson(const QJsonDocument& json)
 	{
 		qDebug() << json;
+		QFile data("output.txt");
+		if (data.open(QFile::WriteOnly | QFile::Append)) {
+			QTextStream out(&data);
+			out << json.toJson();
+		}
 
 		return false;
 	}

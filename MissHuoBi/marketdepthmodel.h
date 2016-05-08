@@ -39,6 +39,10 @@ public:
 
 	virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
 
+public:
+	double GetBuyPrice(const double& dTotalA) const;
+	double GetSellPrice(const double& dTotalA) const;
+
 public slots:
 	void slot_ReciMarketDepthData(
 		const QSharedPointer<HBAPI::MarketDepthData>& ptMarketDepthData);

@@ -1,13 +1,18 @@
 #include "panelboard.h"
 #include "msg\msgmarketoverview.h"
+#include "hbapihandle.h"
 
 #include <QWidget>
 #include <QDateTime>
+#include "hbmarket.h"
+
+using namespace HBAPI;
 
 PanelBoard::PanelBoard(QWidget* parent)
 : QWidget(parent)
 {
 	ui.setupUi(this);
+	Init();
 }
 
 PanelBoard::~PanelBoard()
@@ -32,5 +37,14 @@ void PanelBoard::slot_UpadePanel(const QSharedPointer<MarketOverviewData>& ptMar
 QSize PanelBoard::sizeHint() const
 {
 	return QSize(250, 135);
+}
+
+void PanelBoard::Init()
+{
+	MsgMarketOverview* pMsgMarketDetail =
+		SHBAPI::Instance().GetMarket()->QueryMessage<MsgMarketOverview>();
+
+	QObject::connect(pMsgMarketDetail, &MsgMarketOverview::signal_Receive,
+		this, &PanelBoard::slot_UpadePanel);
 }
 

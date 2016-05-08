@@ -1,7 +1,7 @@
 #include "hbmarketlinker.h"
 
 #include <QSocketIoClient>
-
+#include <QTimer>
 
 namespace HBAPI
 {
@@ -10,16 +10,23 @@ namespace HBAPI
 	class HbMarketLinker::Impl
 	{
 	public:
-		QSocketIoClient* sioClient;
-		QUrl url;
+		QSocketIoClient*	sioClient;
+		QTimer				tmrAsystole;
+		QUrl				url;
+		bool				bConnected;
 
-		void Init(QObject* parent);
+		void Init(HbMarketLinker* parent);
 	};
 
-	void HbMarketLinker::Impl::Init(QObject* parent)
+	void HbMarketLinker::Impl::Init(HbMarketLinker* parent)
 	{
 		sioClient = new QSocketIoClient(parent);
 		sioClient->setObjectName("sioClient");
+
+		tmrAsystole.setInterval(70000);
+		tmrAsystole.setSingleShot(true);
+
+		QObject::connect(&tmrAsystole, &QTimer::timeout, parent, &HbMarketLinker::signal_Asystole);
 
 		QMetaObject::connectSlotsByName(parent);
 	}
@@ -50,6 +57,7 @@ namespace HBAPI
 	void HbMarketLinker::Connect()
 	{
 		m_pImpl->sioClient->open(m_pImpl->url);
+		m_pImpl->tmrAsystole.start();
 	}
 
 	void HbMarketLinker::Disconnect()
@@ -63,9 +71,16 @@ namespace HBAPI
 			m_pImpl->sioClient, std::placeholders::_1, std::placeholders::_2);
 	}
 
+	bool HbMarketLinker::IsConnected() const
+	{
+		return m_pImpl->bConnected;
+	}
+
 	void HbMarketLinker::on_sioClient_heartbeatReceived()
 	{
-		qDebug() << "Received heartbeat";
+		m_pImpl->tmrAsystole.start();
+		static QDateTime dt = QDateTime::currentDateTime();
+		qDebug() << "Received heartbeat:" << QDateTime::currentDateTime().secsTo(dt);
 	}
 
 	void HbMarketLinker::on_sioClient_messageReceived(const QString& message)
@@ -75,17 +90,20 @@ namespace HBAPI
 
 	void HbMarketLinker::on_sioClient_errorReceived(const QString& reason, const QString& advice)
 	{
+		emit signal_Asystole();
 		qDebug() << "on_sioClient_errorReceived:" << reason << advice;
 	}
 
 	void HbMarketLinker::on_sioClient_connected(const QString& endpoint)
 	{
+		m_pImpl->bConnected = true;
 		emit signal_Connected();
 		qDebug() << "on_sioClient_connected:" << endpoint;
 	}
 
 	void HbMarketLinker::on_sioClient_disconnected(const QString& endpoint)
 	{
+		m_pImpl->bConnected = false;
 		emit signal_Disconnected();
 		qDebug() << "on_sioClient_disconnected:" << endpoint;
 	}

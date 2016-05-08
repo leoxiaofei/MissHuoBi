@@ -34,6 +34,7 @@ namespace HBAPI
 		QVector<BidDeleteData>		vecBidDeleteData;
 		QVector<BidUpdateData>		vecBidUpdateData;
 	};
+
 }
 
 #endif // __MARKETDEPTHDATA_H__

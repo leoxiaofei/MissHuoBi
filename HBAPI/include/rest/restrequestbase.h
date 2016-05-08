@@ -6,6 +6,7 @@
 #include <QMap>
 #include <QLatin1String>
 #include <QVariant>
+#include <QSharedPointer>
 
 #include "hbglobal.h"
 #include "common/misshbdef.h"

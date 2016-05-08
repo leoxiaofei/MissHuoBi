@@ -5,6 +5,22 @@
 
 namespace HBAPI
 {
+	class AccountInfoData
+	{
+	public:
+		double dAvailableBtcDisplay;
+		double dLoanCnyDisplay;
+		double dFrozenCnyDisplay;
+		double dAvailableLtcDisplay;
+		double dLoanBtcDisplay;
+		double dFrozenBtcDisplay;
+		double dNetAsset;
+		double dLoanLtcDisplay;
+		double dFrozenLtcDisplay;
+		double dAvailableCnyDisplay;
+		double dTotal;
+	};
+
 	///获取个人资产信息 
 	class HBAPI_EXPORT RestGetAccountInfo : public RestRequestBase
 	{
@@ -14,6 +30,9 @@ namespace HBAPI
 		void SendRequest(MarketType eMarketType = MT_CNY);
 
 		virtual bool ReceiveJson(const QJsonDocument& json) override;
+
+	signals:
+		void signal_Receive(const QSharedPointer<AccountInfoData>& ptAccountInfoData);
 
 	};
 

@@ -5,6 +5,7 @@
 #include "common\marketdepthdata.h"
 
 #include <QDebug>
+#include <algorithm>
 
 using HBAPI::AskDepthData;
 using HBAPI::BidDepthData;
@@ -405,4 +406,53 @@ void MarketDepthModel::RetranslateUi()
 	}
 
 	emit headerDataChanged(Qt::Horizontal, 0, m_pImpl->listHeader.size() - 1);
+}
+
+template <class T>
+class TotalAmountLessThan
+{
+public:
+
+	inline bool operator()(const T& p, const double& t) const
+	{
+		return p.dTotal < t;
+	}
+
+	inline bool operator()(const double& t, const T& p) const
+	{
+		return t < p.dTotal;
+	}
+
+};
+
+double MarketDepthModel::GetBuyPrice(const double& dTotalA) const
+{
+	double dRet(0);
+
+	QList<AskDepthData>::const_iterator iFind = 
+	std::lower_bound(m_pImpl->listAskDepthData.begin(), m_pImpl->listAskDepthData.end(), 
+		dTotalA, TotalAmountLessThan<HBAPI::AskDepthData>());
+
+	if (iFind != m_pImpl->listAskDepthData.end())
+	{
+		dRet = iFind->dPrice;
+	}
+
+	return dRet;
+}
+
+double MarketDepthModel::GetSellPrice(const double& dTotalA) const
+{
+	double dRet(0);
+
+	QList<BidDepthData>::const_iterator iFind =
+		std::lower_bound(m_pImpl->listBidDepthData.begin(), m_pImpl->listBidDepthData.end(),
+		dTotalA, TotalAmountLessThan<HBAPI::BidDepthData>());
+
+	if (iFind != m_pImpl->listBidDepthData.end())
+	{
+		dRet = iFind->dPrice;
+	}
+
+	return dRet;
 }

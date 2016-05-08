@@ -14,7 +14,13 @@ public:
 	MarketBoard(QWidget *parent = 0);
 	~MarketBoard();
 
-	void Init(MarketDepthModel* pMarketDepthModel);
+	void Init();
+
+	MarketDepthModel* GetMarketDepthModel();
+
+public slots:
+	void slot_ReloadMarketDepth();
+	void slot_ReloadMarketDepthTop();
 
 private:
 	Ui::MarketBoard ui;
