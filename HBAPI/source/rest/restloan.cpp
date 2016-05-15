@@ -25,7 +25,7 @@ namespace HBAPI
 		}
 	}
 
-	bool RestLoan::ReceiveJson(const QJsonDocument& json)
+	bool RestLoan::ReceiveJson(const QJsonDocument& json, int nCode)
 	{
 		qDebug() << json;
 

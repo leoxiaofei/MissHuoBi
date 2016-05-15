@@ -1,13 +1,14 @@
 #include "rest\restbuy.h"
 #include "common\mapkv.h"
+#include "common\traderesult.h"
+#include "tools\mspool.hpp"
 
 #include <QDebug>
-#include <QFile>
-#include <QTextStream>
 #include <QJsonDocument>
 
 namespace HBAPI
 {
+	typedef MsPool<class Tag, TradeResult> MPTR;
 
 	void RestBuy::SendRequest(CoinType eCoinType, const double& dPrice, 
 		const double& dAmount, MarketType eMarketType)
@@ -16,7 +17,7 @@ namespace HBAPI
 
 		mapParams.insert(szRestKName[RK_COIN_TYPE], eCoinType);
 		mapParams.insert(szRestKName[RK_PRICE], dPrice);
-		mapParams.insert(szRestKName[RK_AMOUNT], dAmount);
+		mapParams.insert(szRestKName[RK_AMOUNT], QString::number(dAmount, 'f', 4));
 
 		if (eMarketType != MT_CNY)
 		{
@@ -30,16 +31,24 @@ namespace HBAPI
 		}
 	}
 
-	bool RestBuy::ReceiveJson(const QJsonDocument& json)
+	bool RestBuy::ReceiveJson(const QJsonDocument& json, int nCode)
 	{
 		qDebug() << json;
-		QFile data("output.txt");
-		if (data.open(QFile::WriteOnly | QFile::Append)) {
-			QTextStream out(&data);
-			out << json.toJson();
+
+		QSharedPointer<TradeResult> ptTradeResult(MPTR::New(), &MPTR::Free);
+
+		if (nCode == 0)
+		{
+			ParseTradeResult(json, *ptTradeResult);
+		}
+		else
+		{
+			ptTradeResult->bResult = false;
 		}
 
-		return false;
+		emit signal_Receive(ptTradeResult);
+
+		return true;
 	}
 
 }

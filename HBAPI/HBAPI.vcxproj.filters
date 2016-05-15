@@ -119,9 +119,6 @@
     <ClInclude Include="include\hbmarket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\hbrest.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\rest\restrequestbase.h">
       <Filter>Header Files\rest</Filter>
     </ClInclude>
@@ -130,6 +127,12 @@
     </ClInclude>
     <ClInclude Include="include\hbrestlinker.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\common\traderesult.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\common\resterror.h">
+      <Filter>Header Files\common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -427,6 +430,18 @@
     <ClCompile Include="GeneratedFiles\Release\moc_hbmarketlinker.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="source\common\traderesult.cpp">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_hbrest.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_hbrest.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="source\common\resterror.cpp">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="include\msg\msgmarketoverview.h">
@@ -508,6 +523,9 @@
       <Filter>Header Files\rest</Filter>
     </CustomBuild>
     <CustomBuild Include="include\hbmarketlinker.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\hbrest.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>

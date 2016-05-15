@@ -25,7 +25,7 @@ namespace HBAPI
 		}
 	}
 
-	bool RestGetOrderIdByTradeId::ReceiveJson(const QJsonDocument& json)
+	bool RestGetOrderIdByTradeId::ReceiveJson(const QJsonDocument& json, int nCode)
 	{
 		qDebug() << json;
 

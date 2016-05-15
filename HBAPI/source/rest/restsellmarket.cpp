@@ -25,7 +25,7 @@ namespace HBAPI
 		}
 	}
 
-	bool RestSellMarket::ReceiveJson(const QJsonDocument& json)
+	bool RestSellMarket::ReceiveJson(const QJsonDocument& json, int nCode)
 	{
 		qDebug() << json;
 

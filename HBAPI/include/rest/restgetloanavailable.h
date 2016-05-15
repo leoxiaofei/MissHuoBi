@@ -13,7 +13,7 @@ namespace HBAPI
 	public:
 		void SendRequest(MarketType eMarketType = MT_CNY);
 
-		virtual bool ReceiveJson(const QJsonDocument& json) override;
+		virtual bool ReceiveJson(const QJsonDocument& json, int nCode) override;
 
 	};
 

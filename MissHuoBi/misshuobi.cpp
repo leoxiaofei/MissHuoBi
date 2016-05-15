@@ -24,6 +24,7 @@
 #include "marketboard.h"
 #include "controlpanel.h"
 #include "autotrade.h"
+#include "rest\restgetaccountinfo.h"
 
 
 using namespace HBAPI;
@@ -59,6 +60,8 @@ void MissHuoBi::Init()
 	QState* sRunning = new QState();
 	QObject::connect(sRunning, &QState::entered,
 		this, &MissHuoBi::slot_Subscribe);
+
+
 	QState* sBreakOff = new QState();
 	QObject::connect(sBreakOff, &QState::entered,
 		&(m_pImpl->tmrReconnect), (TS)&QTimer::start);
@@ -150,4 +153,9 @@ void MissHuoBi::slot_Subscribe()
 		<< MsgMarketDepthTopDiff::GetSubscriber(SIT_BTCCNY, PT_PUSHLONG)
 		<< MsgMarketOverview::GetSubscriber(SIT_BTCCNY, PT_PUSHLONG)
 		);
+
+
+	RestGetAccountInfo* pGetAccountInfo =
+		SHBAPI::Instance().GetRest()->QueryRequest<RestGetAccountInfo>();
+	pGetAccountInfo->SendRequest();
 }

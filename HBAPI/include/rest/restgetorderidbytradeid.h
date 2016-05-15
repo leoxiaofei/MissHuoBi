@@ -14,7 +14,7 @@ namespace HBAPI
 		void SendRequest(CoinType eCoinType, unsigned int uTradeId,
 			MarketType eMarketType = MT_CNY);
 
-		virtual bool ReceiveJson(const QJsonDocument& json) override;
+		virtual bool ReceiveJson(const QJsonDocument& json, int nCode) override;
 
 	};
 

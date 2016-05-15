@@ -7,6 +7,8 @@
 
 namespace HBAPI
 {
+	class RestError;
+
 	class RestRequestBase;
 
 	class MapKV;
@@ -15,6 +17,7 @@ namespace HBAPI
 
 	class HBAPI_EXPORT HbRest : public QObject
 	{
+		Q_OBJECT
 	public:
 		HbRest(QObject* parent = 0);
 		~HbRest();
@@ -45,6 +48,9 @@ namespace HBAPI
 
 		void RegRequestBase(const char* sz, RestRequestBase* pBase);
 		RestRequestBase* QueryRequestBase(const char* sz) const;
+
+	signals:
+		void signal_RestError(const QSharedPointer<RestError>& ptRestError);
 
 	private:
 		class Impl;

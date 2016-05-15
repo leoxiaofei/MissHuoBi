@@ -25,7 +25,7 @@ namespace HBAPI
 		}
 	}
 
-	bool RestCancelOrder::ReceiveJson(const QJsonDocument& json)
+	bool RestCancelOrder::ReceiveJson(const QJsonDocument& json, int nCode)
 	{
 		qDebug() << json;
 

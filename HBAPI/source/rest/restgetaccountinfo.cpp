@@ -50,7 +50,7 @@ namespace HBAPI
 		}
 	}
 
-	bool RestGetAccountInfo::ReceiveJson(const QJsonDocument& json)
+	bool RestGetAccountInfo::ReceiveJson(const QJsonDocument& json, int nCode)
 	{
 		AccountInfoData* pData = MPAID::New();
 

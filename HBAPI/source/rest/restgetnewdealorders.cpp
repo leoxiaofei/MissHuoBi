@@ -24,7 +24,7 @@ namespace HBAPI
 		}
 	}
 
-	bool RestGetNewDealOrders::ReceiveJson(const QJsonDocument& json)
+	bool RestGetNewDealOrders::ReceiveJson(const QJsonDocument& json, int nCode)
 	{
 		qDebug() << json;
 

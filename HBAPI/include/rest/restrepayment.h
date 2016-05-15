@@ -14,7 +14,7 @@ namespace HBAPI
 		void SendRequest(unsigned int uLoanId, const double& dAmount,
 			int nRepayAll = 0, MarketType eMarketType = MT_CNY);
 
-		virtual bool ReceiveJson(const QJsonDocument& json) override;
+		virtual bool ReceiveJson(const QJsonDocument& json, int nCode) override;
 
 	};
 

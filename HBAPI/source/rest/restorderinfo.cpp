@@ -25,7 +25,7 @@ namespace HBAPI
 		}
 	}
 
-	bool RestOrderInfo::ReceiveJson(const QJsonDocument& json)
+	bool RestOrderInfo::ReceiveJson(const QJsonDocument& json, int nCode)
 	{
 		qDebug() << json;
 

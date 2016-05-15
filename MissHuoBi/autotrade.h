@@ -7,6 +7,7 @@
 namespace HBAPI
 {
 	class AccountInfoData;
+	class TradeResult;
 }
 
 class StatTradeData;
@@ -32,15 +33,26 @@ protected:
 	void InitStateMachine();
 
 public slots:
-	void slot_GetAccountInfo();
 	void slot_UpdateAccountInfo(const QSharedPointer<
 		HBAPI::AccountInfoData>& ptAccountInfoData);
 
 	void slot_StatTradeData(const QSharedPointer<
 		StatTradeData>& ptStatTradeData);
 
+	void slot_TradeResult(const QSharedPointer<
+		HBAPI::TradeResult>& ptTradeResult);
+
 	void slot_Buy();
 	void slot_Sell();
+
+	void slot_Judge();
+	void slot_CheckResult();
+
+signals:
+	void signal_WaitBuy();
+	void signal_WaitSell();
+	void signal_Buy();
+	void signal_Sell();
 
 private:
 	class Impl;

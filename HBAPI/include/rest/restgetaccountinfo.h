@@ -29,7 +29,7 @@ namespace HBAPI
 	public:
 		void SendRequest(MarketType eMarketType = MT_CNY);
 
-		virtual bool ReceiveJson(const QJsonDocument& json) override;
+		virtual bool ReceiveJson(const QJsonDocument& json, int nCode) override;
 
 	signals:
 		void signal_Receive(const QSharedPointer<AccountInfoData>& ptAccountInfoData);

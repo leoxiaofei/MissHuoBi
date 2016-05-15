@@ -19,17 +19,21 @@
 #include "rest\restrepayment.h"
 #include "rest\restgetloans.h"
 #include "rest\restgetloanavailable.h"
-
+#include "common\resterror.h"
+#include "tools\mspool.hpp"
 
 #include <QDateTime>
 #include <QSharedPointer>
 #include <QCryptographicHash>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QFile>
+#include <QTextStream>
 
 namespace HBAPI
 {
 	typedef QHash<QLatin1String, QSharedPointer<RestRequestBase> >   HsRequest;
+	typedef MsPool<class Tag, RestError> MPRE;
 
 	class HbRest::Impl
 	{
@@ -94,9 +98,28 @@ namespace HBAPI
 	{
 		if (RestRequestBase* pBase = m_pImpl->mapResponse.take(nRequestId))
 		{
-			QJsonDocument jd = QJsonDocument::fromJson(ba);
-			pBase->ReceiveJson(jd);
+			int nCode(0);
 
+			QFile data("output.txt");
+			if (data.open(QFile::WriteOnly | QFile::Append)) {
+				QTextStream out(&data);
+				out << ba;
+			}
+
+			QJsonDocument jd = QJsonDocument::fromJson(ba);
+
+			if (CheckError(jd))
+			{
+				QSharedPointer<RestError> ptRestError(MPRE::New(), &MPRE::Free);
+
+				ParseRestError(jd, *ptRestError);
+
+				nCode = ptRestError->nCode;
+
+				emit signal_RestError(ptRestError);
+			}
+
+			pBase->ReceiveJson(jd, nCode);
 		}
 	}
 

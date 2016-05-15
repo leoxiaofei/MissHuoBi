@@ -1,10 +1,13 @@
 #include "rest\restsell.h"
 #include "common\mapkv.h"
+#include "tools\mspool.hpp"
+#include "common\traderesult.h"
 
 #include <QDebug>
 
 namespace HBAPI
 {
+	typedef MsPool<class Tag, TradeResult> MPTR;
 
 	void RestSell::SendRequest(CoinType eCoinType, const double& dPrice,
 		const double& dAmount, MarketType eMarketType)
@@ -27,11 +30,25 @@ namespace HBAPI
 		}
 	}
 
-	bool RestSell::ReceiveJson(const QJsonDocument& json)
+	bool RestSell::ReceiveJson(const QJsonDocument& json, int nCode)
 	{
+		///{"id":1242384756,"result":"success"}
 		qDebug() << json;
+		
+		QSharedPointer<TradeResult> ptTradeResult(MPTR::New(), &MPTR::Free);
+		
+		if (nCode == 0)
+		{
+			ParseTradeResult(json, *ptTradeResult);
+		}
+		else
+		{
+			ptTradeResult->bResult = false;
+		}
+		
+		emit signal_Receive(ptTradeResult);
 
-		return false;
+		return true;
 	}
 
 }

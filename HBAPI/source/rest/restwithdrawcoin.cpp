@@ -27,7 +27,7 @@ namespace HBAPI
 		}
 	}
 
-	bool RestWithdrawCoin::ReceiveJson(const QJsonDocument& json)
+	bool RestWithdrawCoin::ReceiveJson(const QJsonDocument& json, int nCode)
 	{
 		qDebug() << json;
 

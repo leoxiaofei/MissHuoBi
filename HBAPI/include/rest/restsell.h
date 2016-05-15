@@ -5,6 +5,8 @@
 
 namespace HBAPI
 {
+	class TradeResult;
+
 	///Âô³ö 
 	class HBAPI_EXPORT RestSell : public RestRequestBase
 	{
@@ -14,7 +16,10 @@ namespace HBAPI
 		void SendRequest(CoinType eCoinType, const double& dPrice,
 			const double& dAmount, MarketType eMarketType = MT_CNY);
 
-		virtual bool ReceiveJson(const QJsonDocument& json) override;
+		virtual bool ReceiveJson(const QJsonDocument& json, int nCode) override;
+
+	signals:
+		void signal_Receive(const QSharedPointer<TradeResult>& ptTradeResult);
 
 	};
 
