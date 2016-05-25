@@ -146,7 +146,6 @@ namespace HBAPI
 		QLatin1String("loan_type"),
 		QLatin1String("loan_id"),
 		QLatin1String("repay_all"),
-		
 	};
 
 

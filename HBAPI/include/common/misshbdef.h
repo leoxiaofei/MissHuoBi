@@ -178,6 +178,7 @@ namespace HBAPI
 		RK_LOAN_TYPE,
 		RK_LOAN_ID,
 		RK_REPAY_ALL,
+
 	};
 
 	extern QLatin1String szRestKName[];
@@ -204,6 +205,25 @@ namespace HBAPI
 		LT_BTC,
 		LT_LTC,
 		LT_USD,
+	};
+
+
+	enum OrderType {
+		OT_LIMIT_BUY = 1,		///1限价买
+		OT_LIMIT_SELL,			///2限价卖
+		OT_MARKET_BUY,			///3市价买
+		OT_MARKET_SELL,			///4市价卖
+	};
+
+	enum OrderStatus {
+		OS_NO_DEAL,				///0未成交
+		OS_PART_DEAL,			///1部分成交
+		OS_COMPLETED,			///2已完成
+		OS_CANCELED,			///3已取消
+		OS_ABANDONED,			///4废弃（该状态已不再使用）
+		OS_ABNORMAL,			///5异常 
+		OS_PART_CANCELED,		///6部分成交已取消 
+		OS_QUEUE				///7队列中
 	};
 }
 
