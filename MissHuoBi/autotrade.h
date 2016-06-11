@@ -8,6 +8,7 @@ namespace HBAPI
 {
 	class AccountInfoData;
 	class TradeResult;
+	class OrderInfo;
 }
 
 class StatTradeData;
@@ -42,17 +43,23 @@ public slots:
 	void slot_TradeResult(const QSharedPointer<
 		HBAPI::TradeResult>& ptTradeResult);
 
+	void slot_OrderInfo(const QSharedPointer<HBAPI::OrderInfo>& ptOrderInfo);
+
 	void slot_Buy();
 	void slot_Sell();
 
 	void slot_Judge();
 	void slot_CheckResult();
+	void slot_CancelOrder();
 
 signals:
 	void signal_WaitBuy();
 	void signal_WaitSell();
 	void signal_Buy();
 	void signal_Sell();
+	void signal_Checkout();					///下单
+	void signal_OrderFinish();				///订单完成
+	void signal_RetryCountExceeded();		///超出重试次数
 
 private:
 	class Impl;

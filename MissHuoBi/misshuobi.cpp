@@ -7,6 +7,7 @@
 #include <QTimer>
 #include <QHeaderView>
 #include <QStateMachine>
+#include <QTimer>
 
 #include "common\marketdepthdata.h"
 #include "common\marketdepthtopdata.h"
@@ -25,6 +26,7 @@
 #include "controlpanel.h"
 #include "autotrade.h"
 #include "rest\restgetaccountinfo.h"
+#include "rest\restgetorders.h"
 
 
 using namespace HBAPI;
@@ -126,12 +128,12 @@ void MissHuoBi::on_actionRequest_triggered()
 // 		pRestGetAccountInfo->SendRequest();
 // 	}
 
-// 	RestGetOrders* pRestGetOrders =
-// 			m_pImpl->pR->QueryRequest<RestGetOrders>();
-// 	if (pRestGetOrders)
-// 	{
-// 		pRestGetOrders->SendRequest(CT_BTC);
-// 	}
+	RestGetOrders* pRestGetOrders =
+		SHBAPI::Instance().GetRest()->QueryRequest<RestGetOrders>();
+	if (pRestGetOrders)
+	{
+		pRestGetOrders->SendRequest(CT_BTC);
+	}
 
 // 	RestGetNewDealOrders* pRestGetNewDealOrders =
 // 		m_pImpl->pR->QueryRequest<RestGetNewDealOrders>();
@@ -154,8 +156,6 @@ void MissHuoBi::slot_Subscribe()
 		<< MsgMarketOverview::GetSubscriber(SIT_BTCCNY, PT_PUSHLONG)
 		);
 
-
-	RestGetAccountInfo* pGetAccountInfo =
-		SHBAPI::Instance().GetRest()->QueryRequest<RestGetAccountInfo>();
-	pGetAccountInfo->SendRequest();
+	QTimer::singleShot(1000, ui.wgControlPanel, &ControlPanel::slot_RequestAccountInfo);
 }
+

@@ -16,6 +16,8 @@ namespace HBAPI
 
 		virtual bool ReceiveJson(const QJsonDocument& json, int nCode) override;
 
+	signals:
+		void signal_Receive(bool bResult);
 	};
 
 

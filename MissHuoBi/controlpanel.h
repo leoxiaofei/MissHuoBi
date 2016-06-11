@@ -8,6 +8,7 @@
 namespace HBAPI
 {
 	class AccountInfoData;
+	class OrdersData;
 }
 
 class AutoTrade;
@@ -25,8 +26,13 @@ public:
 	AutoTrade* GetAutoTrade() const;
 
 public slots:
+	void slot_RequestAccountInfo();
 	void slot_UpdateAccountInfo(const 
 		QSharedPointer<HBAPI::AccountInfoData>& ptAccountInfoData);
+	void slot_UpdateOrdersData(const QList<HBAPI::OrdersData>& listOrdersData);
+	void slot_OrdersMenuRequested(const QPoint& pos);
+	void slot_ActCancelOrder();
+
 
 protected:
 	void InitStateMachine();

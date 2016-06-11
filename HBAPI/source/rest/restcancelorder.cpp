@@ -1,10 +1,21 @@
 #include "rest\restcancelorder.h"
 #include "common\mapkv.h"
 
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <QDebug>
 
 namespace HBAPI
 {
+	namespace
+	{
+		enum ElemText { ET_RESULT };
+
+		const char* szElemText[] =
+		{
+			"result",
+		};
+	}
 
 	void RestCancelOrder::SendRequest(CoinType eCoinType, 
 		unsigned int uOrderId, MarketType eMarketType)
@@ -29,7 +40,13 @@ namespace HBAPI
 	{
 		qDebug() << json;
 
-		return false;
+		QJsonObject obj = json.object();
+
+		bool bSuccess = obj[szElemText[ET_RESULT]].toString() == "success";
+
+		emit signal_Receive(bSuccess);
+
+		return true;
 	}
 
 }

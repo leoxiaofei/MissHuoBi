@@ -150,6 +150,7 @@
     <ClCompile Include="marketdepthmodel.cpp" />
     <ClCompile Include="misshuobi.cpp" />
     <ClCompile Include="mscfgfile.cpp" />
+    <ClCompile Include="ordersmodel.cpp" />
     <ClCompile Include="panelboard.cpp" />
     <ClCompile Include="stattradedata.cpp" />
     <ClCompile Include="tradeboard.cpp" />
@@ -192,6 +193,7 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ordersmodel.h" />
     <ClInclude Include="stattradedata.h" />
     <CustomBuild Include="tradeboard.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
