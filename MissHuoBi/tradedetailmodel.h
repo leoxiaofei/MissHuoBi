@@ -16,9 +16,6 @@ class TradeDetailModel : public QAbstractTableModel
 {
 	Q_OBJECT
 public:
-	TradeDetailModel(QObject* parent = 0);
-	~TradeDetailModel();
-
 	enum ColumnType {
 		TD_TRADEID,
 		TD_TIME,
@@ -28,7 +25,14 @@ public:
 		_TD_TOTOAL,
 	};
 
+	void AddTradeDetai(const QSharedPointer<HBAPI::TradeDetailBill>& ptTradeDetailBill);
+
 	void RetranslateUi();
+
+protected:
+	TradeDetailModel(QObject* parent = 0);
+	~TradeDetailModel();
+
 
 public:
 	virtual int rowCount(const QModelIndex &parent = QModelIndex()) const override;
@@ -42,18 +46,13 @@ public:
 protected:
 	void GetDisplayRole(const QModelIndex &index, QVariant& val) const;
 
-	void StatTrade(const QVector<HBAPI::TradeDetailData*>& vecTrade);
 	void LastTradeRadio();
-
-public slots:
-	void slot_AddTradeDetai(const QSharedPointer<HBAPI::TradeDetailBill>& ptTradeDetailBill);
-
-signals:
-	void signal_StatTradeData(const QSharedPointer<StatTradeData>& ptStatTradeData);
 
 private:
 	class Impl;
 	QScopedPointer<Impl> m_pImpl;
+
+	friend class TradeStatistic;
 };
 
 

@@ -7,7 +7,7 @@
 
 namespace HBAPI
 {
-	class OrdersData
+	class HBAPI_EXPORT OrdersData
 	{
 	public:
 		int			nId;					///Î¯ÍÐ¶©µ¥id

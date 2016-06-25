@@ -23,7 +23,6 @@ namespace
 
 }
 
-typedef MsPool<class Tag, StatTradeData> MPSTD;
 
 class TradeDetailModel::Impl
 {
@@ -113,38 +112,34 @@ QVariant TradeDetailModel::data(const QModelIndex &index, int role /*= Qt::Displ
 	return vaRet;
 }
 
-void TradeDetailModel::slot_AddTradeDetai(const QSharedPointer<HBAPI::TradeDetailBill>& ptTradeDetailBill)
+void TradeDetailModel::AddTradeDetai(const QSharedPointer<HBAPI::TradeDetailBill>& ptTradeDetailBill)
 {
-	if (!ptTradeDetailBill->vecTradeDetailData.isEmpty())
+	int nFirst = 0;
+	beginInsertRows(QModelIndex(), nFirst, nFirst + ptTradeDetailBill->vecTradeDetailData.size() - 1);
+
+	for (QVector<HBAPI::TradeDetailData*>::const_iterator itor
+		= ptTradeDetailBill->vecTradeDetailData.cbegin();
+		itor != ptTradeDetailBill->vecTradeDetailData.cend(); ++itor)
 	{
-		StatTrade(ptTradeDetailBill->vecTradeDetailData);
-		int nFirst = 0;
-		beginInsertRows(QModelIndex(), nFirst, nFirst + ptTradeDetailBill->vecTradeDetailData.size() - 1);
+		m_pImpl->queTDData.append(*itor);
+	}
 
-		for (QVector<HBAPI::TradeDetailData*>::const_iterator itor
-			= ptTradeDetailBill->vecTradeDetailData.cbegin();
-			itor != ptTradeDetailBill->vecTradeDetailData.cend(); ++itor)
+	endInsertRows();
+
+	ptTradeDetailBill->vecTradeDetailData.clear();
+
+	int nRemove = m_pImpl->queTDData.size() - m_pImpl->nMaxCount;
+	if (nRemove > 0)
+	{
+		beginRemoveRows(QModelIndex(), 0, nRemove - 1);
+
+		while (nRemove)
 		{
-			m_pImpl->queTDData.append(*itor);
+			ptTradeDetailBill->vecTradeDetailData.append(m_pImpl->queTDData.takeFirst());
+			--nRemove;
 		}
 
-		endInsertRows();
-
-		ptTradeDetailBill->vecTradeDetailData.clear();
-
-		int nRemove = m_pImpl->queTDData.size() - m_pImpl->nMaxCount;
-		if (nRemove > 0)
-		{
-			beginRemoveRows(QModelIndex(), 0, nRemove - 1);
-
-			while (nRemove)
-			{
-				ptTradeDetailBill->vecTradeDetailData.append(m_pImpl->queTDData.takeFirst());
-				--nRemove;
-			}
-
-			endRemoveRows();
-		}
+		endRemoveRows();
 	}
 }
 
@@ -158,41 +153,6 @@ void TradeDetailModel::RetranslateUi()
 	}
 
 	emit headerDataChanged(Qt::Horizontal, 0, m_pImpl->listHeader.size() - 1);
-}
-
-void TradeDetailModel::StatTrade(const QVector<HBAPI::TradeDetailData*>& vecTrade)
-{
-	StatTradeData* pData = MPSTD::New();
-	pData->Clear();
-
-	for (QVector<HBAPI::TradeDetailData*>::const_iterator citor = vecTrade.cbegin();
-		citor != vecTrade.cend(); ++citor)
-	{
-		HBAPI::TradeDetailData* pTrade = *citor;
-		switch (pTrade->eDirection)
-		{
-		case HBAPI::DT_BUYING:
-		case HBAPI::DT_BUYING2:
-			pData->dBuyingAmount += pTrade->dAmount;
-			++pData->dBuyingCount;
-			break;
-		case HBAPI::DT_SELLING:
-		case HBAPI::DT_SELLIN2:
-			pData->dSellingAmount += pTrade->dAmount;
-			++pData->dSellingCount;
-			break;
-		default:
-			break;
-		}
-
-		pData->dAvePrice += pTrade->dPrice;
-		pData->dMaxPrice = qMax(pData->dMaxPrice, pTrade->dPrice);
-		pData->dMinPrice = qMin(pData->dMinPrice, pTrade->dPrice);
-	}
-
-	pData->dAvePrice = pData->dAvePrice / vecTrade.size();
-
-	emit signal_StatTradeData(QSharedPointer<StatTradeData>(pData, &MPSTD::Free));
 }
 
 class LastLessThan

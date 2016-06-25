@@ -30,7 +30,8 @@ namespace HBAPI
 		ptLastTimeLineData->dVolume = joPayload[szAttributeName[AN_VOLUME]].toDouble();
 		ptLastTimeLineData->nCount = joPayload[szAttributeName[AN_COUNT]].toDouble();
 
-		return false;
+		emit signal_Receive(ptLastTimeLineData);
+		return true;
 	}
 
 }

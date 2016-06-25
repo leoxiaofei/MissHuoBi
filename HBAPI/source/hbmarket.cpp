@@ -19,6 +19,7 @@
 #include "msg/msgmarketoverview.h"
 #include "msg/msgmarketstatic.h"
 #include "req/reqmarketdepth.h"
+#include "req/reqkline.h"
 
 
 
@@ -59,6 +60,7 @@ void HbMarket::SetSendFunc(const FuncEmitMarket& emitMessage)
 
 	RegRequest<ReqMarketDepth>();
 	RegRequest<ReqMarketDepthTop>();
+	RegRequest<ReqKLine>();
 	RegRequest<ReqMsgSubscribe>();
 	RegRequest<ReqMsgUnsubscribe>();
 	RegMessage<MsgTradeDetail>();

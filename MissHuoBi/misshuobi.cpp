@@ -25,8 +25,7 @@
 #include "marketboard.h"
 #include "controlpanel.h"
 #include "autotrade.h"
-#include "rest\restgetaccountinfo.h"
-#include "rest\restgetorders.h"
+#include "req\reqkline.h"
 
 
 using namespace HBAPI;
@@ -128,11 +127,12 @@ void MissHuoBi::on_actionRequest_triggered()
 // 		pRestGetAccountInfo->SendRequest();
 // 	}
 
-	RestGetOrders* pRestGetOrders =
-		SHBAPI::Instance().GetRest()->QueryRequest<RestGetOrders>();
-	if (pRestGetOrders)
+	ReqKLine* pReqKLine =
+		SHBAPI::Instance().GetMarket()->QueryRequest<ReqKLine>();
+	if (pReqKLine)
 	{
-		pRestGetOrders->SendRequest(CT_BTC);
+		static int ePeriodType(PT_KLINE1MIN);
+		pReqKLine->SendRequest(SIT_BTCCNY, static_cast<PeriodType>(ePeriodType));
 	}
 
 // 	RestGetNewDealOrders* pRestGetNewDealOrders =

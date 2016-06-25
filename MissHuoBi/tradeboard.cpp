@@ -3,6 +3,7 @@
 #include "hbapihandle.h"
 #include "msg\msgtradedetail.h"
 #include "hbmarket.h"
+#include "tradestatistic.h"
 
 using namespace HBAPI;
 
@@ -20,7 +21,7 @@ TradeBoard::~TradeBoard()
 
 void TradeBoard::Init()
 {
-	TradeDetailModel* pTradeModel = new TradeDetailModel(ui.tvTradeLog);
+	TradeDetailModel* pTradeModel = STS::Instance().GetTradeDetailModel();
 
 	ui.tvTradeLog->setModel(pTradeModel);
 	ui.tvTradeLog->hideColumn(TradeDetailModel::TD_TRADEID);
@@ -28,10 +29,4 @@ void TradeBoard::Init()
 	ui.tvTradeLog->horizontalHeader()->setSectionResizeMode(TradeDetailModel::TD_PRICE, QHeaderView::Stretch);
 	ui.tvTradeLog->horizontalHeader()->setSectionResizeMode(TradeDetailModel::TD_AMOUNT, QHeaderView::Stretch);
 	ui.tvTradeLog->horizontalHeader()->setSectionResizeMode(TradeDetailModel::TD_DIRECTION, QHeaderView::Stretch);
-
-	MsgTradeDetail* pMsgTradeDetail = 
-		SHBAPI::Instance().GetMarket()->QueryMessage<MsgTradeDetail>();
-
-	QObject::connect(pMsgTradeDetail, &MsgTradeDetail::signal_Receive,
-		pTradeModel, &TradeDetailModel::slot_AddTradeDetai);
 }

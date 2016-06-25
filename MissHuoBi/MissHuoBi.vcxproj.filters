@@ -131,6 +131,15 @@
     <ClCompile Include="ordersmodel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="tradestatistic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_tradestatistic.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_tradestatistic.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="misshuobi.h">
@@ -177,6 +186,9 @@
     </CustomBuild>
     <CustomBuild Include="tradeboard.ui">
       <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="tradestatistic.h">
+      <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

@@ -8,23 +8,11 @@
 
 namespace HBAPI
 {
-	class HBAPI_EXPORT LastKLineData
-	{
-	public:
-		SymbolIdType	eSymbolId;		   ///交易代码
-		PeriodType		ePeriod;		   ///k线周期
-		time_t			tTime;			   ///时间
-		double			dPriceOpen;		   ///开盘
-		double			dPriceHigh;		   ///最高
-		double			dPriceLow;		   ///最低
-		double			dPriceLast;		   ///收盘
-		double			dAmount;		   ///成交量
-		double			dVolume;		   ///成交额
-		int				nCount;			   ///成交笔数
-	};
+	class LastKLineData;
 
 	class HBAPI_EXPORT MsgLastKLine : public SubscribeBase
 	{
+		Q_OBJECT
 		MSGTYPE(lastKLine);
 	public:
 		static Subscriber GetSubscriber(SymbolIdType eSymbolId, PushType ePushType,
@@ -33,6 +21,9 @@ namespace HBAPI
 		virtual bool ReceiveJson(const QJsonObject& joPayload) override;
 
 	protected:
+
+	signals :
+		void signal_Receive(const QSharedPointer<LastKLineData>& ptLastKLineData);
 
 	};
 

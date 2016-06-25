@@ -80,12 +80,6 @@
     <ClInclude Include="include\msg\msgmarketstatic.h">
       <Filter>Header Files\msg</Filter>
     </ClInclude>
-    <ClInclude Include="include\msg\msglastkline.h">
-      <Filter>Header Files\msg</Filter>
-    </ClInclude>
-    <ClInclude Include="include\msg\msglasttimeline.h">
-      <Filter>Header Files\msg</Filter>
-    </ClInclude>
     <ClInclude Include="include\req\reqmsgsubscribe.h">
       <Filter>Header Files\req</Filter>
     </ClInclude>
@@ -132,6 +126,9 @@
       <Filter>Header Files\common</Filter>
     </ClInclude>
     <ClInclude Include="include\common\resterror.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\common\klinedata.h">
       <Filter>Header Files\common</Filter>
     </ClInclude>
   </ItemGroup>
@@ -442,6 +439,30 @@
     <ClCompile Include="source\common\resterror.cpp">
       <Filter>Source Files\common</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_msglasttimeline.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_msglasttimeline.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="source\req\reqkline.cpp">
+      <Filter>Source Files\req</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_reqkline.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_reqkline.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="source\common\klinedata.cpp">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_msglastkline.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_msglastkline.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="include\msg\msgmarketoverview.h">
@@ -527,6 +548,15 @@
     </CustomBuild>
     <CustomBuild Include="include\hbrest.h">
       <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\msg\msglasttimeline.h">
+      <Filter>Header Files\msg</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\req\reqkline.h">
+      <Filter>Header Files\req</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\msg\msglastkline.h">
+      <Filter>Header Files\msg</Filter>
     </CustomBuild>
   </ItemGroup>
 </Project>

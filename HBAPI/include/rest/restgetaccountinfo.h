@@ -5,7 +5,7 @@
 
 namespace HBAPI
 {
-	class AccountInfoData
+	class HBAPI_EXPORT AccountInfoData
 	{
 	public:
 		double dAvailableBtcDisplay;

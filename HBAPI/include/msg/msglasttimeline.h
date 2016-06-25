@@ -21,6 +21,7 @@ namespace HBAPI
 	class HBAPI_EXPORT MsgLastTimeLine : public SubscribeBase
 	{
 		MSGTYPE(lastTimeLine);
+		Q_OBJECT
 	public:
 		static Subscriber GetSubscriber(SymbolIdType eSymbolId, PushType ePushType);
 
@@ -28,6 +29,8 @@ namespace HBAPI
 
 	protected:
 
+	signals :
+		void signal_Receive(const QSharedPointer<LastTimeLineData>& ptMarketDepthDiffData);
 	};
 
 }

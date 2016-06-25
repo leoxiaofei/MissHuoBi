@@ -103,7 +103,7 @@ namespace HBAPI
 			QFile data("output.txt");
 			if (data.open(QFile::WriteOnly | QFile::Append)) {
 				QTextStream out(&data);
-				out << ba;
+				out << "\r\n" << ba;
 			}
 
 			QJsonDocument jd = QJsonDocument::fromJson(ba);
