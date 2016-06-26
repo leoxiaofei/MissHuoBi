@@ -4,6 +4,8 @@
 #include "requestbase.h"
 #include <QSharedPointer>
 
+class QDateTime;
+
 /*
 历史数据接口
 获取历史k线信息
@@ -21,7 +23,8 @@ namespace HBAPI
 		ReqKLine();
 		~ReqKLine();
 
-		int SendRequest(SymbolIdType eSymbolId, PeriodType ePercentType);
+		int SendRequest(SymbolIdType eSymbolId, PeriodType ePercentType, 
+			const QDateTime& dtFrom, const QDateTime& dtTo);
 
 	protected:
 		virtual bool ReceiveJson(const QJsonObject& json) override;

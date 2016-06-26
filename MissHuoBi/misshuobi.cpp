@@ -26,7 +26,10 @@
 #include "controlpanel.h"
 #include "autotrade.h"
 #include "req\reqkline.h"
+#include "msg\msglastkline.h"
 
+#include <QDateTime>
+#include "req\reqtimeline.h"
 
 using namespace HBAPI;
 
@@ -55,15 +58,20 @@ void MissHuoBi::Init()
 
 	//////////////////////////////////////////////////////////////////////////
 	QState* sWaiting = new QState();
+	sWaiting->setObjectName("sWaiting");
+
 	QState* sConnecting = new QState();
+	sConnecting->setObjectName("sConnecting");
 	QObject::connect(sConnecting, &QState::entered,
 		SHBAPI::Instance().GetMarketLinker(), &HbMarketLinker::Connect);
+
 	QState* sRunning = new QState();
+	sRunning->setObjectName("sRunning");
 	QObject::connect(sRunning, &QState::entered,
 		this, &MissHuoBi::slot_Subscribe);
 
-
 	QState* sBreakOff = new QState();
+	sBreakOff->setObjectName("sBreakOff");
 	QObject::connect(sBreakOff, &QState::entered,
 		&(m_pImpl->tmrReconnect), (TS)&QTimer::start);
 
@@ -88,7 +96,7 @@ void MissHuoBi::Init()
 
 	m_pImpl->mConnect.start();
 
-	QTimer::singleShot(500, ui.actionConnect, &QAction::trigger);
+	QTimer::singleShot(2500, ui.actionConnect, &QAction::trigger);
 
 	ui.dockLog->hide();
 
@@ -127,12 +135,12 @@ void MissHuoBi::on_actionRequest_triggered()
 // 		pRestGetAccountInfo->SendRequest();
 // 	}
 
-	ReqKLine* pReqKLine =
-		SHBAPI::Instance().GetMarket()->QueryRequest<ReqKLine>();
+	ReqTimeLine* pReqKLine =
+		SHBAPI::Instance().GetMarket()->QueryRequest<ReqTimeLine>();
 	if (pReqKLine)
 	{
 		static int ePeriodType(PT_KLINE1MIN);
-		pReqKLine->SendRequest(SIT_BTCCNY, static_cast<PeriodType>(ePeriodType));
+		pReqKLine->SendRequest(SIT_BTCCNY, QDateTime::currentDateTime().addSecs(-1800), QDateTime());
 	}
 
 // 	RestGetNewDealOrders* pRestGetNewDealOrders =
@@ -154,6 +162,7 @@ void MissHuoBi::slot_Subscribe()
 		<< MsgTradeDetail::GetSubscriber(SIT_BTCCNY, PT_PUSHLONG)
 		<< MsgMarketDepthTopDiff::GetSubscriber(SIT_BTCCNY, PT_PUSHLONG)
 		<< MsgMarketOverview::GetSubscriber(SIT_BTCCNY, PT_PUSHLONG)
+		<< MsgLastKLine::GetSubscriber(SIT_BTCCNY, PT_PUSHLONG, QVector<PeriodType>() << PT_KLINE1MIN)
 		);
 
 	QTimer::singleShot(1000, ui.wgControlPanel, &ControlPanel::slot_RequestAccountInfo);

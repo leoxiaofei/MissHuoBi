@@ -21,6 +21,7 @@
     <ClInclude Include="include\common\misshbfunc.h" />
     <ClInclude Include="include\common\misshbtext.h" />
     <ClInclude Include="include\common\resterror.h" />
+    <ClInclude Include="include\common\timelinedata.h" />
     <ClInclude Include="include\common\traderesult.h" />
     <ClInclude Include="include\common\tradesdata.h" />
     <ClInclude Include="include\hbglobal.h" />
@@ -163,6 +164,16 @@
     </CustomBuild>
     <ClInclude Include="include\req\reqmsgsubscribe.h" />
     <ClInclude Include="include\req\reqmsgunsubscribe.h" />
+    <CustomBuild Include="include\req\reqtimeline.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing reqtimeline.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DHBAPI_LIB -DQT_NETWORK_LIB -D_WINDLL "-I.\GeneratedFiles" "-I." "-I.\include" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtNetwork"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing reqtimeline.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DHBAPI_LIB -DQT_NETWORK_LIB -D_WINDLL "-I.\GeneratedFiles" "-I." "-I.\include" "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtNetwork"</Command>
+    </CustomBuild>
     <ClInclude Include="include\req\requestbase.h" />
     <CustomBuild Include="include\rest\restgetaccountinfo.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -386,6 +397,9 @@
     <ClCompile Include="GeneratedFiles\Debug\moc_reqmarketdepthtop.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_reqtimeline.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_restbuy.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -476,6 +490,9 @@
     <ClCompile Include="GeneratedFiles\Release\moc_reqmarketdepthtop.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_reqtimeline.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_restbuy.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -540,6 +557,7 @@
     <ClCompile Include="source\common\misshbfunc.cpp" />
     <ClCompile Include="source\common\misshbtext.cpp" />
     <ClCompile Include="source\common\resterror.cpp" />
+    <ClCompile Include="source\common\timelinedata.cpp" />
     <ClCompile Include="source\common\traderesult.cpp" />
     <ClCompile Include="source\common\tradesdata.cpp" />
     <ClCompile Include="source\hbmarket.cpp" />
@@ -560,6 +578,7 @@
     <ClCompile Include="source\req\reqmarketdepthtop.cpp" />
     <ClCompile Include="source\req\reqmsgsubscribe.cpp" />
     <ClCompile Include="source\req\reqmsgunsubscribe.cpp" />
+    <ClCompile Include="source\req\reqtimeline.cpp" />
     <ClCompile Include="source\req\requestbase.cpp" />
     <ClCompile Include="source\rest\restbuy.cpp" />
     <ClCompile Include="source\rest\restbuymarket.cpp" />

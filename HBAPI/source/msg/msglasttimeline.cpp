@@ -2,6 +2,7 @@
 #include "tools/mspool.hpp"
 #include "common/misshbdef.h"
 #include "common/misshbfunc.h"
+#include "common/timelinedata.h"
 
 #include <QJsonObject>
 #include <QSharedPointer>
@@ -23,14 +24,10 @@ namespace HBAPI
 	{
 		QSharedPointer<LastTimeLineData> ptLastTimeLineData(MPLTLD::New(), &MPLTLD::Free);
 
-		ptLastTimeLineData->eSymbolId = GetSymbolIdType(joPayload[szAttributeName[AN_SYMBOLID]].toString());
-		ptLastTimeLineData->tTime = joPayload[szAttributeName[AN_TIME]].toDouble();
-		ptLastTimeLineData->dPriceLast = joPayload[szAttributeName[AN_PRICELAST]].toDouble();
-		ptLastTimeLineData->dAmount = joPayload[szAttributeName[AN_AMOUNT]].toDouble();
-		ptLastTimeLineData->dVolume = joPayload[szAttributeName[AN_VOLUME]].toDouble();
-		ptLastTimeLineData->nCount = joPayload[szAttributeName[AN_COUNT]].toDouble();
+		ParseTimeLineCylinder(joPayload, *ptLastTimeLineData);
 
 		emit signal_Receive(ptLastTimeLineData);
+
 		return true;
 	}
 

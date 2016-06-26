@@ -131,6 +131,9 @@
     <ClInclude Include="include\common\klinedata.h">
       <Filter>Header Files\common</Filter>
     </ClInclude>
+    <ClInclude Include="include\common\timelinedata.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\common\misshbdef.cpp">
@@ -463,6 +466,18 @@
     <ClCompile Include="GeneratedFiles\Release\moc_msglastkline.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="source\req\reqtimeline.cpp">
+      <Filter>Source Files\req</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_reqtimeline.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_reqtimeline.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="source\common\timelinedata.cpp">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="include\msg\msgmarketoverview.h">
@@ -557,6 +572,9 @@
     </CustomBuild>
     <CustomBuild Include="include\msg\msglastkline.h">
       <Filter>Header Files\msg</Filter>
+    </CustomBuild>
+    <CustomBuild Include="include\req\reqtimeline.h">
+      <Filter>Header Files\req</Filter>
     </CustomBuild>
   </ItemGroup>
 </Project>

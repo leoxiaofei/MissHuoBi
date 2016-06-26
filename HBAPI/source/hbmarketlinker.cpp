@@ -56,6 +56,7 @@ namespace HBAPI
 
 	void HbMarketLinker::Connect()
 	{
+		qDebug() << "HbMarketLinker::Connect";
 		m_pImpl->sioClient->open(m_pImpl->url);
 		m_pImpl->tmrAsystole.start();
 	}

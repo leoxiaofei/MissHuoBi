@@ -4,7 +4,7 @@
 
 #include <QJsonObject>
 #include <QDebug>
-
+#include <QDateTime>
 
 namespace HBAPI
 {
@@ -20,18 +20,28 @@ namespace HBAPI
 
 	}
 
-	int ReqKLine::SendRequest(SymbolIdType eSymbolId, PeriodType ePeriodType)
+	int ReqKLine::SendRequest(SymbolIdType eSymbolId, PeriodType ePeriodType, 
+		const QDateTime& dtFrom, const QDateTime& dtTo)
 	{
 		QJsonObject json;
 		json.insert(szAttributeName[AN_SYMBOLID], szSymbolIdType[eSymbolId]);
 		json.insert(szAttributeName[AN_PERIOD], szPeriodType[ePeriodType]);
+
+		if (dtFrom.isValid())
+		{
+			json.insert(szAttributeName[AN_FROM], (qint64)dtFrom.toTime_t());
+		}
+
+		if (dtTo.isValid())
+		{
+			json.insert(szAttributeName[AN_TO], (qint64)dtTo.toTime_t());
+		}
+
 		return SendJson(json);
 	}
 
 	bool ReqKLine::ReceiveJson(const QJsonObject& json)
 	{
-		qDebug() << json;
-
 		QSharedPointer<KLineData> ptKLineData(MPKLD::New(), &MPKLD::Free);
 
 		ParseKLineData(json, *ptKLineData);

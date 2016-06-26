@@ -7,16 +7,7 @@
 
 namespace HBAPI
 {
-	class HBAPI_EXPORT LastTimeLineData
-	{
-	public:
-		SymbolIdType	eSymbolId;		   //交易代码
-		time_t			tTime;			   //时间，秒数
-		double			dPriceLast;		   //收盘
-		double			dAmount;		   //成交量
-		double			dVolume;		   //成交额
-		int				nCount;			   //成交笔数
-	};
+	class LastTimeLineData;
 
 	class HBAPI_EXPORT MsgLastTimeLine : public SubscribeBase
 	{

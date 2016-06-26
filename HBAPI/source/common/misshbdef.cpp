@@ -76,6 +76,9 @@ namespace HBAPI
 		"bidPrice",
 		"bidAmount",
 		"bidTotal",
+
+		"from",
+		"to",
 	};
 
 	const char* szSymbolIdType[] = {

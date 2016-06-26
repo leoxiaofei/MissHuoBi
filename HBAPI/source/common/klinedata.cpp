@@ -4,6 +4,7 @@
 
 #include <QJsonObject>
 #include <QJsonArray>
+#include <QDebug>
 
 
 namespace HBAPI

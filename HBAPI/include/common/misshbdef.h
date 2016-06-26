@@ -78,6 +78,9 @@ namespace HBAPI
 		AN_BIDPRICE,
 		AN_BIDAMOUNT,
 		AN_BIDTOTAL,
+
+		AN_FROM,
+		AN_TO,
 	};
 
 	extern const char* szAttributeName[];
